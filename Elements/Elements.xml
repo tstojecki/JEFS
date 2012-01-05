@@ -6,6 +6,8 @@
   <CustomAction ScriptSrc="~SiteCollection/JEFS/Scripts/codemirror/codemirror-compressed.js" Location="ScriptLink" Sequence="15"/>
   <CustomAction ScriptSrc="~SiteCollection/JEFS/Scripts/JEFSControl.js" Location="ScriptLink" Sequence="20"/>
   <CustomAction ScriptSrc="~SiteCollection/JEFS/Scripts/jefs.debug.js" Location="ScriptLink" Sequence="25"/>
+  
+  
 
   <!-- Custom ribbon button for a web part page. TODO: Work on creating buttons for other common sharepoint targets. -->
   <CustomAction

@@ -1,0 +1,6 @@
+﻿[
+	{"name": "jQuery-1.7.1 (MS)", "url": "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.js"},	
+	{"name": "jQuery-1.6.4 (MS)", "url": "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.4.js"},
+	{"name": "jQuery-UI-1.8.16 (MS)", "url": "http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/jquery-ui.js"},
+	{"name": "SPServices-0.6.2 (Local)", "url": "/SiteAssets/jquery.SPServices-0.6.2.js"}
+]

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="JEFS_CustomFiles">
+    <File Path="JEFS_CustomFiles\libraries.txt" Url="Lists/JEFS/libraries.txt" />
+  </Module>
+</Elements>

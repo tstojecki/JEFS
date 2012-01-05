@@ -1,0 +1,22 @@
+#Visual Studio files
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.sbr
+*.sdf
+obj/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+
+#Vim
+*.swp

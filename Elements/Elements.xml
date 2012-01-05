@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Control
+    Id="AdditionalPageHead"
+    ControlSrc="~/_controltemplates/JEFS.ascx"
+    Sequence="10"/>
+  
+  <!-- Custom ribbon button for a web part page. TODO: Work on creating buttons for other common sharepoint targets. -->
+  <CustomAction
+    Id="JEFS.SharePoint.Actions.Controls.Action"
+    Location="CommandUI.Ribbon"     
+    >
+    <CommandUIExtension>
+      <CommandUIDefinitions>
+        <CommandUIDefinition
+         Location="Ribbon.WebPartPage.Actions.Controls._children">          
+              <Button
+                Id="JEFS.SharePoint.WebPartPage.Actions.Controls.Button"
+                Command="JEFS.SharePoint.WebPartPage.Actions.Controls.Button.Command"
+                Image16by16="/_layouts/1033/images/formatmap16x16.png" Image16by16Top="-120" Image16by16Left="-32"
+                Image32by32="/_layouts/1033/images/formatmap32x32.png" Image32by32Top="-160" Image32by32Left="-32"
+                CommandType="General"                
+                LabelText="Javascript Editor"              
+                ToolTipTitle="Javascript Editor for SharePoint"
+                ToolTipDescription="Javascript Editor for SharePoint (JEFS)"
+                Sequence="45"              
+                TemplateAlias="o1"/>
+        </CommandUIDefinition>        
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <CommandUIHandler
+          Command="JEFS.SharePoint.WebPartPage.Actions.Controls.Button.Command"
+          CommandAction="javascript:JEFS.editor.launch();" />
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>
+  <CustomAction
+    Id="JEFS.SharePoint.WikiPage.Actions.Controls.Action"
+    Location="CommandUI.Ribbon"    
+    >
+    <CommandUIExtension>
+      <CommandUIDefinitions>
+        <CommandUIDefinition Location="Ribbon.WikiPageTab.PageActions.Controls._children">
+          <Button
+                Id="JEFS.SharePoint.WikiPage.Actions.Controls.Button"
+                Command="JEFS.SharePoint.WikiPage.Actions.Controls.Button.Command"
+                Image16by16="/_layouts/1033/images/formatmap16x16.png" Image16by16Top="-120" Image16by16Left="-32"
+                Image32by32="/_layouts/1033/images/formatmap32x32.png" Image32by32Top="-160" Image32by32Left="-32"
+                CommandType="General"
+                LabelText="Javascript Editor"
+                ToolTipTitle="Javascript Editor for SharePoint"
+                ToolTipDescription="Javascript Editor for SharePoint (JEFS)"
+                Sequence="145"
+                TemplateAlias="o1"/>
+        </CommandUIDefinition>
+      </CommandUIDefinitions>    
+      <CommandUIHandlers>
+        <CommandUIHandler
+          Command="JEFS.SharePoint.WikiPage.Actions.Controls.Button.Command"
+          CommandAction="javascript:JEFS.editor.launch();" />
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>
+
+  <CustomAction
+    Id="JEFS.SharePoint.WikiPage.PubPageActions.Controls.Action"
+    Location="CommandUI.Ribbon"
+    >
+    <CommandUIExtension>
+      <CommandUIDefinitions>
+        <CommandUIDefinition Location="Ribbon.WikiPageTab.PubPageActions.Controls._children">
+          <Button
+                Id="JEFS.SharePoint.WikiPage.PubPageActions.Controls.Button"
+                Command="JEFS.SharePoint.WikiPage.PubPageActions.Controls.Button.Command"
+                Image16by16="/_layouts/1033/images/formatmap16x16.png" Image16by16Top="-120" Image16by16Left="-32"
+                Image32by32="/_layouts/1033/images/formatmap32x32.png" Image32by32Top="-160" Image32by32Left="-32"
+                CommandType="General"
+                LabelText="Javascript Editor"
+                ToolTipTitle="Javascript Editor for SharePoint"
+                ToolTipDescription="Javascript Editor for SharePoint (JEFS)"
+                Sequence="145"
+                TemplateAlias="o1"/>
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <CommandUIHandler
+          Command="JEFS.SharePoint.WikiPage.PubPageActions.Controls.Button.Command"
+          CommandAction="javascript:JEFS.editor.launch();" />
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>
+
+  <CustomAction
+    Id="JEFS.SharePoint.Lists.Actions.Controls.Action"
+    Location="CommandUI.Ribbon"
+    >
+    <CommandUIExtension>
+      <CommandUIDefinitions>
+        <CommandUIDefinition Location="Ribbon.List.CustomizeList.Controls._children">
+          <Button
+                Id="JEFS.SharePoint.List.CustomizeList.Controls.Button"
+                Command="JEFS.SharePoint.List.CustomizeList.Controls.Button.Command"
+                Image16by16="/_layouts/1033/images/formatmap16x16.png" Image16by16Top="-120" Image16by16Left="-32"
+                Image32by32="/_layouts/1033/images/formatmap32x32.png" Image32by32Top="-160" Image32by32Left="-32"
+                CommandType="General"
+                LabelText="Javascript Editor"
+                ToolTipTitle="Javascript Editor for SharePoint"
+                ToolTipDescription="Javascript Editor for SharePoint (JEFS)"
+                Sequence="165"
+                TemplateAlias="o1"/>
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <CommandUIHandler
+          Command="JEFS.SharePoint.List.CustomizeList.Controls.Button.Command"
+          CommandAction="javascript:JEFS.editor.launch();" />
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>
+  
+  <CustomAction
+    Id="JEFS.SharePoint.ListForms.Actions.Controls.Action"
+    Location="CommandUI.Ribbon"
+    >
+    <CommandUIExtension>
+      <CommandUIDefinitions>
+        <CommandUIDefinition Location="Ribbon.ListForm.Edit.Actions.Controls._children">
+          <Button
+                Id="JEFS.SharePoint.ListForms.Actions.Controls.Button"
+                Command="JEFS.SharePoint.ListForms.Actions.Controls.Button.Command"
+                Image16by16="/_layouts/1033/images/formatmap16x16.png" Image16by16Top="-120" Image16by16Left="-32"
+                Image32by32="/_layouts/1033/images/formatmap32x32.png" Image32by32Top="-160" Image32by32Left="-32"
+                CommandType="General"
+                LabelText="Javascript Editor"
+                ToolTipTitle="Javascript Editor for SharePoint"
+                ToolTipDescription="Javascript Editor for SharePoint (JEFS)"
+                Sequence="165"
+                TemplateAlias="o1"/>
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <CommandUIHandler
+          Command="JEFS.SharePoint.ListForms.Actions.Controls.Button.Command"
+          CommandAction="javascript:JEFS.editor.launch();" />
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>
+
+  <CustomAction
+    Id="JEFS.SharePoint.DocLib.CustomizeLibrary.Controls.Action"
+    Location="CommandUI.Ribbon"
+    >
+    <CommandUIExtension>
+      <CommandUIDefinitions>
+        <CommandUIDefinition Location="Ribbon.Library.CustomizeLibrary.Controls._children">
+          <Button
+                Id="JEFS.SharePoint.DocLib.CustomizeLibrary.Controls.Button"
+                Command="JEFS.SharePoint.DocLib.CustomizeLibrary.Controls.Button.Command"
+                Image16by16="/_layouts/1033/images/formatmap16x16.png" Image16by16Top="-16" Image16by16Left="-184"
+                Image32by32="/_layouts/1033/images/formatmap32x32.png" Image32by32Top="-160" Image32by32Left="-32"
+                CommandType="General"
+                LabelText="Javascript Editor"
+                ToolTipTitle="Javascript Editor for SharePoint"
+                ToolTipDescription="Javascript Editor for SharePoint (JEFS)"
+                Sequence="45"
+                TemplateAlias="o2"/>
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <CommandUIHandler
+          Command="JEFS.SharePoint.DocLib.CustomizeLibrary.Controls.Button.Command"
+          CommandAction="javascript:JEFS.editor.launch();" />
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>
+
+  <CustomAction
+    Id="JEFS.SharePoint.DocLibForms.Actions.Controls.Action"
+    Location="CommandUI.Ribbon"
+    >
+    <CommandUIExtension>
+      <CommandUIDefinitions>
+        <CommandUIDefinition Location="Ribbon.DocLibListForm.Edit.Actions.Controls._children">
+          <Button
+                Id="JEFS.SharePoint.DocLibForms.Actions.Controls.Button"
+                Command="JEFS.SharePoint.DocLibForms.Actions.Controls.Button.Command"
+                Image16by16="/_layouts/1033/images/formatmap16x16.png" Image16by16Top="-120" Image16by16Left="-32"
+                Image32by32="/_layouts/1033/images/formatmap32x32.png" Image32by32Top="-160" Image32by32Left="-32"
+                CommandType="General"
+                LabelText="Javascript Editor"
+                ToolTipTitle="Javascript Editor for SharePoint"
+                ToolTipDescription="Javascript Editor for SharePoint (JEFS)"
+                Sequence="165"
+                TemplateAlias="o1"/>
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <CommandUIHandler
+          Command="JEFS.SharePoint.DocLibForms.Actions.Controls.Button.Command"
+          CommandAction="javascript:JEFS.editor.launch();" />
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>
+  
+</Elements>

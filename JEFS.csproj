@@ -60,19 +60,9 @@
     <Reference Include="Microsoft.SharePoint.Security" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CONTROLTEMPLATES\JEFS.ascx.cs">
-      <DependentUpon>JEFS.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CONTROLTEMPLATES\JEFS.ascx.designer.cs">
-      <DependentUpon>JEFS.ascx.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CONTROLTEMPLATES\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{dbe4f332-c707-49ca-8bd1-e7d4215d3f8d}</SharePointProjectItemId>
-    </None>
     <None Include="Elements\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{ec9c30d6-d37f-4d8f-aff1-954a5e6c6e95}</SharePointProjectItemId>
     </None>
@@ -89,9 +79,6 @@
       <SharePointProjectItemId>{c961fc10-b6fb-4213-9890-6bf7b99ee909}</SharePointProjectItemId>
     </None>
     <None Include="key.snk" />
-    <None Include="Layouts\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{38f1b337-3887-41cc-85ee-c3e3968d73e2}</SharePointProjectItemId>
-    </None>
     <None Include="Package\Package.package">
       <PackageId>{4646d755-a7cc-49a5-96aa-1748be8151f3}</PackageId>
     </None>
@@ -104,7 +91,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="CONTROLTEMPLATES\JEFS.ascx" />
     <Content Include="Elements\Elements.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -118,15 +104,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="JEFS\Schema.xml" />
-    <Content Include="Layouts\1033\JEFS\codemirror\codemirror-compressed.js" />
-    <Content Include="Layouts\1033\JEFS\codemirror\codemirror.css" />
-    <Content Include="Layouts\1033\JEFS\codemirror\theme\default.css" />
-    <Content Include="Layouts\1033\JEFS\codemirror\theme\elegant.css" />
-    <Content Include="Layouts\1033\JEFS\codemirror\theme\neat.css" />
-    <Content Include="Layouts\1033\JEFS\codemirror\theme\night.css" />
-    <Content Include="Layouts\1033\JEFS\jefs.debug.js" />
-    <Content Include="Layouts\1033\JEFS\jefs.js" />
-    <Content Include="Layouts\1033\JEFS\json\json2-min.js" />
     <Content Include="readme.txt" />
     <Content Include="Scripts\codemirror\codemirror-compressed.js" />
     <Content Include="Scripts\codemirror\codemirror.css" />

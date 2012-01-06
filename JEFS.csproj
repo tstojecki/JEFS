@@ -13,10 +13,14 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BB1F664B-9266-4fd6-B973-E1E44974B511};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SandboxedSolution>True</SandboxedSolution>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <ActiveDeploymentConfiguration>Default</ActiveDeploymentConfiguration>
     <PostDeploymentCommand>
     </PostDeploymentCommand>
@@ -96,6 +100,7 @@
     </Content>
     <Content Include="Features\Feature\Feature.Template.xml">
       <DependentUpon>Feature.feature</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="JEFS\CustomFiles\Elements.xml" />
     <Content Include="JEFS\CustomFiles\libraries.txt" />
@@ -103,7 +108,9 @@
     <Content Include="JEFS\Pages\Elements.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="JEFS\Schema.xml" />
+    <Content Include="JEFS\Schema.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="readme.txt" />
     <Content Include="Scripts\codemirror\codemirror-compressed.js" />
     <Content Include="Scripts\codemirror\codemirror.css" />
@@ -111,11 +118,12 @@
     <Content Include="Scripts\codemirror\theme\elegant.css" />
     <Content Include="Scripts\codemirror\theme\neat.css" />
     <Content Include="Scripts\codemirror\theme\night.css" />
-    <Content Include="Scripts\Elements.xml" />
+    <Content Include="Scripts\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jason\json2-min.js" />
     <Content Include="Scripts\jefs.debug.js" />
     <Content Include="Scripts\jefs.js" />
-    <Content Include="Scripts\JEFSControl.js" />
     <Content Include="Scripts\jquery-1.6.2.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

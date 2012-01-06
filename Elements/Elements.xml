@@ -4,7 +4,7 @@
   <CustomAction ScriptSrc="~SiteCollection/JEFS/Scripts/jquery-1.6.2.js" Location="ScriptLink" Sequence="5"/>
   <CustomAction ScriptSrc="~SiteCollection/JEFS/Scripts/json/json2-min.js" Location="ScriptLink" Sequence="10"/>
   <CustomAction ScriptSrc="~SiteCollection/JEFS/Scripts/codemirror/codemirror-compressed.js" Location="ScriptLink" Sequence="15"/>
-  <CustomAction ScriptSrc="~SiteCollection/JEFS/Scripts/JEFSControl.js" Location="ScriptLink" Sequence="20"/>
+  <!--<CustomAction ScriptSrc="~SiteCollection/JEFS/Scripts/JEFSControl.js" Location="ScriptLink" Sequence="20"/>-->
   <CustomAction ScriptSrc="~SiteCollection/JEFS/Scripts/jefs.debug.js" Location="ScriptLink" Sequence="25"/>
   
   

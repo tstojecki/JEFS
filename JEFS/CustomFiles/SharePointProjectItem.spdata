@@ -3,5 +3,11 @@
   <Files>
     <ProjectItemFile Source="Elements.xml" Target="CustomFiles\" Type="ElementManifest" />
     <ProjectItemFile Source="libraries.txt" Target="JEFS_CustomFiles\" Type="ElementFile" />
+    <ProjectItemFile Source="Scripts\codemirror\codemirror-compressed.js" Target="JEFS_CustomFiles\Scripts\codemirror\" Type="ElementFile" />
+    <ProjectItemFile Source="Scripts\codemirror\codemirror.css" Target="JEFS_CustomFiles\Scripts\codemirror\" Type="ElementFile" />
+    <ProjectItemFile Source="Scripts\jefs.js" Target="JEFS_CustomFiles\Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="Scripts\jefs.debug.js" Target="JEFS_CustomFiles\Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="Scripts\jquery\jquery-1.7.1.min.js" Target="JEFS_CustomFiles\Scripts\jquery\" Type="ElementFile" />
+    <ProjectItemFile Source="Scripts\lab\LAB.min.js" Target="JEFS_CustomFiles\Scripts\lab\" Type="ElementFile" />
   </Files>
 </ProjectItem>

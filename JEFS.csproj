@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BB1F664B-9266-4fd6-B973-E1E44974B511};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <SandboxedSolution>False</SandboxedSolution>
+    <SandboxedSolution>True</SandboxedSolution>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -21,6 +21,7 @@
     <PostDeploymentCommand>
     </PostDeploymentCommand>
     <PreDeploymentCommand>%24%28ProjectDir%29minify.bat</PreDeploymentCommand>
+    <IncludeAssemblyInPackage>False</IncludeAssemblyInPackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,25 +61,16 @@
     <Reference Include="Microsoft.SharePoint.Security" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CONTROLTEMPLATES\JEFS.ascx.cs">
-      <DependentUpon>JEFS.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CONTROLTEMPLATES\JEFS.ascx.designer.cs">
-      <DependentUpon>JEFS.ascx.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CONTROLTEMPLATES\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{dbe4f332-c707-49ca-8bd1-e7d4215d3f8d}</SharePointProjectItemId>
-    </None>
     <None Include="Elements\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{ec9c30d6-d37f-4d8f-aff1-954a5e6c6e95}</SharePointProjectItemId>
     </None>
     <None Include="Features\Feature\Feature.feature">
       <FeatureId>{32b9854f-26e8-4524-b033-d355eee24a5d}</FeatureId>
     </None>
+    <None Include="JEFS\CustomFiles\Scripts\codemirror\LICENSE" />
     <None Include="JEFS\CustomFiles\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{399aa816-a815-449a-87e5-6dfde5836abf}</SharePointProjectItemId>
     </None>
@@ -89,9 +81,6 @@
       <SharePointProjectItemId>{c961fc10-b6fb-4213-9890-6bf7b99ee909}</SharePointProjectItemId>
     </None>
     <None Include="key.snk" />
-    <None Include="Layouts\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{38f1b337-3887-41cc-85ee-c3e3968d73e2}</SharePointProjectItemId>
-    </None>
     <None Include="Package\Package.package">
       <PackageId>{4646d755-a7cc-49a5-96aa-1748be8151f3}</PackageId>
     </None>
@@ -101,7 +90,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="CONTROLTEMPLATES\JEFS.ascx" />
+    <Content Include="JEFS\CustomFiles\Scripts\jquery\jquery-GPL-LICENSE.txt" />
+    <Content Include="JEFS\CustomFiles\Scripts\jquery\jquery-MIT-LICENSE.txt" />
+    <Content Include="JEFS\CustomFiles\Scripts\lab\License.txt" />
+    <Content Include="license.txt" />
     <Content Include="Elements\Elements.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -110,20 +102,17 @@
     </Content>
     <Content Include="JEFS\CustomFiles\Elements.xml" />
     <Content Include="JEFS\CustomFiles\libraries.txt" />
+    <Content Include="JEFS\CustomFiles\Scripts\codemirror\codemirror-compressed.js" />
+    <Content Include="JEFS\CustomFiles\Scripts\codemirror\codemirror.css" />
+    <Content Include="JEFS\CustomFiles\Scripts\jefs.debug.js" />
+    <Content Include="JEFS\CustomFiles\Scripts\jefs.js" />
+    <Content Include="JEFS\CustomFiles\Scripts\jquery\jquery-1.7.1.min.js" />
+    <Content Include="JEFS\CustomFiles\Scripts\lab\LAB.min.js" />
     <Content Include="JEFS\Elements.xml" />
     <Content Include="JEFS\Pages\Elements.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="JEFS\Schema.xml" />
-    <Content Include="Layouts\1033\JEFS\codemirror\codemirror-compressed.js" />
-    <Content Include="Layouts\1033\JEFS\codemirror\codemirror.css" />
-    <Content Include="Layouts\1033\JEFS\codemirror\theme\default.css" />
-    <Content Include="Layouts\1033\JEFS\codemirror\theme\elegant.css" />
-    <Content Include="Layouts\1033\JEFS\codemirror\theme\neat.css" />
-    <Content Include="Layouts\1033\JEFS\codemirror\theme\night.css" />
-    <Content Include="Layouts\1033\JEFS\jefs.debug.js" />
-    <Content Include="Layouts\1033\JEFS\jefs.js" />
-    <Content Include="Layouts\1033\JEFS\json\json2-min.js" />
     <Content Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

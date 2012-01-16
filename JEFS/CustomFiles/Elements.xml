@@ -2,5 +2,14 @@
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <Module Name="JEFS_CustomFiles">
     <File Path="JEFS_CustomFiles\libraries.txt" Url="Lists/JEFS/libraries.txt" />
-  </Module>
+    
+    <File Path="JEFS_CustomFiles\Scripts\codemirror\codemirror-compressed.js" Url="Lists/JEFS/codemirror-compressed.js" />
+    <File Path="JEFS_CustomFiles\Scripts\codemirror\codemirror.css" Url="Lists/JEFS/codemirror.css" />    
+    <File Path="JEFS_CustomFiles\Scripts\jquery\jquery-1.7.1.min.js" Url="Lists/JEFS/jquery-1.7.1.min.js" />
+    <File Path="JEFS_CustomFiles\Scripts\lab\LAB.min.js" Url="Lists/JEFS/LAB.min.js" />
+    
+    <File Path="JEFS_CustomFiles\Scripts\jefs.js" Url="Lists/JEFS/jefs.js" />
+    <File Path="JEFS_CustomFiles\Scripts\jefs.debug.js" Url="Lists/JEFS/jefs.debug.js" />
+    
+</Module>
 </Elements>

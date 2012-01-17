@@ -20,7 +20,8 @@
     <ActiveDeploymentConfiguration>Default</ActiveDeploymentConfiguration>
     <PostDeploymentCommand>
     </PostDeploymentCommand>
-    <PreDeploymentCommand>%24%28ProjectDir%29minify.bat</PreDeploymentCommand>
+    <PreDeploymentCommand>
+    </PreDeploymentCommand>
     <IncludeAssemblyInPackage>False</IncludeAssemblyInPackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

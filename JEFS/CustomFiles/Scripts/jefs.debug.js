@@ -21,7 +21,9 @@ JEFS.siteCollectionUrl = null;
             codeMirrorSrc = $("head script[src?='/lists/jefs/codemirror-compressed.js']:first").attr("src")
             siteCollectionUrl = cmSrc.substr(0, cmSrc.length - 35);            
         }
-
+        
+        // does it end with a /
+        if (!siteCollectionUrl.match(/\/$/)) siteCollectionUrl = siteCollectionUrl + '/';
         JEFS.siteCollectionUrl = siteCollectionUrl;
 
         loadScriptByUrl();
@@ -87,7 +89,7 @@ JEFS.siteCollectionUrl = null;
         </soap:Envelope>';        
 
         $.ajax({
-            url: JEFS.siteCollectionUrl + '_vti_bin/lists.asmx',
+            url: '/_vti_bin/lists.asmx',
             type: 'POST',
             contentType: 'text/xml; charset="utf-8"',
             dataType: ($.browser.msie) ? 'text' : 'xml',
@@ -259,7 +261,7 @@ JEFS.editor = (function ($, window, document, undefined) {
     function getLibraries() {
 
         $.ajax({
-            url: JEFS.siteCollectionUrl + 'lists/jefs/libraries.txt',
+            url: '/lists/jefs/libraries.txt',
             dataType: 'text'
         })
         .done(function (data) {

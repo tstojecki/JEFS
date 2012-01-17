@@ -15,20 +15,19 @@
     ScriptSrc="~SiteCollection/Lists/JEFS/jquery-1.7.1.min.js"
     Location="ScriptLink"
     Sequence="10001"/>
-
+  
   <CustomAction
     ScriptSrc="~SiteCollection/Lists/JEFS/jefs.js"
     Location="ScriptLink"
     Sequence="10002"/>
   
-  <!-- TO DEBUG REPLACE WITH: 
-  <CustomAction
+  <!-- TO DEBUG REPLACE WITH: -->  
+  <!--<CustomAction
     ScriptSrc="~SiteCollection/Lists/JEFS/jefs.debug.js"
     Location="ScriptLink"
-    Sequence="10002"/>
-  -->
+    Sequence="10002"/>-->
                   
-  <!-- Custom ribbon button for a web part page. TODO: Work on creating buttons for other common sharepoint targets. -->
+  <!-- JEFS buttons inside the Ribbon. -->
   <CustomAction
     Id="JEFS.SharePoint.Actions.Controls.Action"
     Location="CommandUI.Ribbon"     
@@ -223,6 +222,17 @@
           CommandAction="javascript:JEFS.editor.launch();" />
       </CommandUIHandlers>
     </CommandUIExtension>
+  </CustomAction>
+  
+  <!-- JEFS button inside the site actions -->
+  <CustomAction 
+    Id="SiteActionsToolbar" 
+    GroupId="SiteActions" 
+    Location="Microsoft.SharePoint.StandardMenu" 
+    Sequence="1000" 
+    Title="JEFS"
+    Description="Javascript Editor for SharePoint">
+    <UrlAction Url="javascript:JEFS.editor.launch();"/>
   </CustomAction>
   
 </Elements>

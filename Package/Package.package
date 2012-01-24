@@ -2,5 +2,6 @@
 <package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="4646d755-a7cc-49a5-96aa-1748be8151f3" solutionId="4646d755-a7cc-49a5-96aa-1748be8151f3" resetWebServer="false" name="JEFS" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
   <features>
     <featureReference itemId="32b9854f-26e8-4524-b033-d355eee24a5d" />
+    <featureReference itemId="3f35be15-24a4-41a9-996d-20027b8004a2" />
   </features>
 </package>

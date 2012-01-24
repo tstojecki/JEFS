@@ -1,4 +1,4 @@
-﻿<List Title="JEFS" Direction="none" Url="Lists/JEFS" BaseType="0" Type="100" FolderCreation="FALSE" Catalog="FALSE" SendToLocation="|" ImageUrl="/_layouts/images/itgen.png" xmlns:ows="Microsoft SharePoint" xmlns:spctf="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms" xmlns="http://schemas.microsoft.com/sharepoint/">
+﻿<List Title="JEFS" RootWebOnly="TRUE" Direction="none" Url="Lists/JEFS" BaseType="0" Type="100" FolderCreation="FALSE" Catalog="FALSE" SendToLocation="|" ImageUrl="/_layouts/images/itgen.png" xmlns:ows="Microsoft SharePoint" xmlns:spctf="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms" xmlns="http://schemas.microsoft.com/sharepoint/">
   <MetaData>
     <ContentTypes>
       <ContentType ID="0x01" Name="Item" Group="List Content Types" Description="Create a new list item." FeatureId="{695b6570-a48b-4a8e-8ea5-26ea7fc1d162}">

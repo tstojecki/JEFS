@@ -68,7 +68,10 @@
     <None Include="Elements\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{ec9c30d6-d37f-4d8f-aff1-954a5e6c6e95}</SharePointProjectItemId>
     </None>
-    <None Include="Features\Feature\Feature.feature">
+    <None Include="Features\JEFS Editor Feature\JEFS Editor Feature.feature">
+      <FeatureId>{3f35be15-24a4-41a9-996d-20027b8004a2}</FeatureId>
+    </None>
+    <None Include="Features\JEFS Root List Feature\JEFS Root List Feature.feature">
       <FeatureId>{32b9854f-26e8-4524-b033-d355eee24a5d}</FeatureId>
     </None>
     <None Include="JEFS\CustomFiles\Scripts\codemirror\LICENSE" />
@@ -91,6 +94,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Features\JEFS Editor Feature\JEFS Editor Feature.Template.xml">
+      <DependentUpon>JEFS Editor Feature.feature</DependentUpon>
+    </Content>
     <Content Include="JEFS\CustomFiles\Scripts\jquery\jquery-GPL-LICENSE.txt" />
     <Content Include="JEFS\CustomFiles\Scripts\jquery\jquery-MIT-LICENSE.txt" />
     <Content Include="JEFS\CustomFiles\Scripts\lab\License.txt" />
@@ -98,8 +104,8 @@
     <Content Include="Elements\Elements.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Features\Feature\Feature.Template.xml">
-      <DependentUpon>Feature.feature</DependentUpon>
+    <Content Include="Features\JEFS Root List Feature\JEFS Root List Feature.Template.xml">
+      <DependentUpon>JEFS Root List Feature.feature</DependentUpon>
     </Content>
     <Content Include="JEFS\CustomFiles\Elements.xml" />
     <Content Include="JEFS\CustomFiles\libraries.txt" />
@@ -109,7 +115,9 @@
     <Content Include="JEFS\CustomFiles\Scripts\jefs.js" />
     <Content Include="JEFS\CustomFiles\Scripts\jquery\jquery-1.7.1.min.js" />
     <Content Include="JEFS\CustomFiles\Scripts\lab\LAB.min.js" />
-    <Content Include="JEFS\Elements.xml" />
+    <Content Include="JEFS\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="JEFS\Pages\Elements.xml">
       <SubType>Designer</SubType>
     </Content>

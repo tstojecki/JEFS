@@ -16,16 +16,16 @@
     Location="ScriptLink"
     Sequence="10001"/>
   
-  <CustomAction
+  <!--<CustomAction
     ScriptSrc="~SiteCollection/Lists/JEFS/jefs.js"
     Location="ScriptLink"
-    Sequence="10002"/>
+    Sequence="10002"/>-->
   
   <!-- TO DEBUG REPLACE WITH: -->  
-  <!--<CustomAction
+  <CustomAction
     ScriptSrc="~SiteCollection/Lists/JEFS/jefs.debug.js"
     Location="ScriptLink"
-    Sequence="10002"/>-->
+    Sequence="10002"/>
                   
   <!-- JEFS buttons inside the Ribbon. -->
   <CustomAction

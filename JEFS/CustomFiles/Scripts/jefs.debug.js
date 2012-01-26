@@ -3,28 +3,27 @@ var JEFS = JEFS || {};
 JEFS.$ = jQuery.noConflict(true);
 JEFS.script = '';
 JEFS.includes = '<!-- jefs script references -->';
-JEFS.siteCollectionUrl = null;
+JEFS.siteServerRelativeUrl = null;
 
 (function ($, window, document) {
     
     $(document).ready(function() {
         
-        var siteCollectionUrl,
+        var siteServerRelativeUrl,
+            webServerRelativeUrl,
             codeMirrorSrc,
             applied = false,
             inc = [];
 
-        if (_spPageContextInfo) siteCollectionUrl = _spPageContextInfo.webServerRelativeUrl;
-        if (!siteCollectionUrl) {
-            // not sure if this is necessary, bit of a hack but better safe than sorry
-            // will remove it if testing proves it unnecessary
-            codeMirrorSrc = $("head script[src?='/lists/jefs/codemirror-compressed.js']:first").attr("src")
-            siteCollectionUrl = cmSrc.substr(0, cmSrc.length - 35);            
+        if (_spPageContextInfo) { 
+            siteServerRelativeUrl = _spPageContextInfo.siteServerRelativeUrl;
+            webServerRelativeUrl = _spPageContextInfo.webServerRelativeUrl;        
         }
         
+        
         // does it end with a /
-        if (!siteCollectionUrl.match(/\/$/)) siteCollectionUrl = siteCollectionUrl + '/';
-        JEFS.siteCollectionUrl = siteCollectionUrl;
+        if (!siteServerRelativeUrl.match(/\/$/)) siteServerRelativeUrl = siteServerRelativeUrl + '/';
+        JEFS.siteServerRelativeUrl = siteServerRelativeUrl;
 
         loadScriptByUrl();
 
@@ -32,7 +31,7 @@ JEFS.siteCollectionUrl = null;
         $('<link>').appendTo('head').attr({
             rel: 'stylesheet',
             type: 'text/css',
-            href: siteCollectionUrl + 'lists/JEFS/codemirror.css'
+            href: siteServerRelativeUrl + 'lists/JEFS/codemirror.css'
         });
 
         if (JEFS.includes !== '') {
@@ -89,7 +88,7 @@ JEFS.siteCollectionUrl = null;
         </soap:Envelope>';        
 
         $.ajax({
-            url: '/_vti_bin/lists.asmx',
+            url: JEFS.siteServerRelativeUrl + '_vti_bin/lists.asmx',
             type: 'POST',
             contentType: 'text/xml; charset="utf-8"',
             dataType: ($.browser.msie) ? 'text' : 'xml',
@@ -261,7 +260,7 @@ JEFS.editor = (function ($, window, document, undefined) {
     function getLibraries() {
 
         $.ajax({
-            url: '/lists/jefs/libraries.txt',
+            url: JEFS.siteServerRelativeUrl + 'lists/jefs/libraries.txt',
             dataType: 'text'
         })
         .done(function (data) {

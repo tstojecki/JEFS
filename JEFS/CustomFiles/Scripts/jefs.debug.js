@@ -9,15 +9,13 @@ JEFS.siteServerRelativeUrl = null;
     
     $(document).ready(function() {
         
-        var siteServerRelativeUrl,
-            webServerRelativeUrl,
+        var siteServerRelativeUrl,            
             codeMirrorSrc,
             applied = false,
             inc = [];
 
         if (_spPageContextInfo) { 
-            siteServerRelativeUrl = _spPageContextInfo.siteServerRelativeUrl;
-            webServerRelativeUrl = _spPageContextInfo.webServerRelativeUrl;        
+            siteServerRelativeUrl = _spPageContextInfo.siteServerRelativeUrl;            
         }
         
         

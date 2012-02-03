@@ -87,17 +87,17 @@ JEFS.siteServerRelativeUrl = null;
 
         $.ajax({
             url: JEFS.siteServerRelativeUrl + '_vti_bin/lists.asmx',
-            type: 'POST',
-            contentType: 'text/xml; charset="utf-8"',
-            dataType: ($.browser.msie) ? 'text' : 'xml',
+            type: 'POST',            
+            contentType: 'text/xml;charset="utf-8"',            
+            dataType: 'xml',
             data: soapEnv,
             async: false
         })
         .done(function(doc) {                                
-            var rows = $(doc).find('row:first');
+            var rows = $(doc).find('*').filter('z\\:row');
             if (rows.length > 0) {
-                JEFS.script = rows.attr('ows_Content');
-                JEFS.includes = rows.attr('ows_HeadContent');
+                JEFS.script = rows.first().attr('ows_Content');
+                JEFS.includes = rows.first().attr('ows_HeadContent');
             }
         })
         .fail(function (jqXHR, textStatus, error) {

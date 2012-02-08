@@ -34,9 +34,14 @@ JEFS.siteServerRelativeUrl = null;
 
         if (JEFS.includes !== '') {
             
+            // timing might be an issue here, needs testing
+            $(JEFS.includes).filter('style').each(function() {
+                $('head').append('<style text="text/css">' + $(this).html() + '</style>');
+            });
+
             $(JEFS.includes).filter('script').each(function() {
                 inc.push($(this).attr('src'));
-            });
+            });            
 
             if (inc.length > 0) {
                 $LAB.script(inc).wait(function() {

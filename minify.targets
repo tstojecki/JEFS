@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/MsBuild/2003">
+
+    <UsingTask
+        TaskName="JavaScriptCompressorTask"
+        AssemblyFile="$(SolutionDir)lib\YUICompressor.NET-MsBuild-Task.2.0.Head\Yahoo.Yui.Compressor.MsBuildTask.dll" />
+
+    <PropertyGroup>
+      <JavaScriptOutputFile>JEFS\CustomFiles\Scripts\jefs.js</JavaScriptOutputFile>
+      <JavaScriptEditorOutputFile>JEFS\CustomFiles\Scripts\jefs.editor.js</JavaScriptEditorOutputFile>
+      
+          <BuildDependsOn Condition="'$(ConfigurationName)' == 'Debug'">
+            $(BuildDependsOn);
+            CombineJavaScript;
+          </BuildDependsOn>
+        
+          <BuildDependsOn Condition="'$(ConfigurationName)' == 'Release'">
+            $(BuildDependsOn);
+            MinifyJavaScript;
+          </BuildDependsOn>       
+
+    </PropertyGroup>
+
+    <ItemGroup>
+      <JavaScriptFiles Include="Scripts\jefs.js" />
+      <JavaScriptFiles Include="Scripts\jefs.item.js" />      
+      <JavaScriptFiles Include="Scripts\jefs.load.js" />      
+      <JavaScriptFiles Include="Scripts\jefs.sp.runtime.js" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <JavaScriptEditorFiles Include="Scripts\jefs.js" />
+      <JavaScriptEditorFiles Include="Scripts\jefs.status.js" />
+      <JavaScriptEditorFiles Include="Scripts\jefs.item.js" />      
+      <JavaScriptEditorFiles Include="Scripts\jefs.sp.js" />
+      <JavaScriptEditorFiles Include="Scripts\jefs.editors.js" />
+      <JavaScriptEditorFiles Include="Scripts\jefs.cpanel.js" />
+      <JavaScriptEditorFiles Include="Scripts\jefs.splitter.js" />
+      <JavaScriptEditorFiles Include="Scripts\jefs.editor.js" />
+      <JavaScriptEditorFiles Include="Scripts\jefs.editor.app.js" />
+    </ItemGroup>
+    
+	  <Target Name="CombineJavaScript">        
+
+        <JavaScriptCompressorTask
+            SourceFiles="@(JavaScriptFiles)"
+            CompressionType="None"
+            ObfuscateJavaScript="false"            
+            DisableOptimizations="true"            
+            DeleteSourceFiles="false"            
+            OutputFile="$(JavaScriptOutputFile)"            
+            />
+
+        <JavaScriptCompressorTask
+              SourceFiles="@(JavaScriptEditorFiles)"
+              CompressionType="None"
+              ObfuscateJavaScript="false"
+              DisableOptimizations="true"
+              DeleteSourceFiles="false"
+              OutputFile="$(JavaScriptEditorOutputFile)"
+              />
+    </Target>
+
+    <Target Name="MinifyJavaScript">        
+
+        <JavaScriptCompressorTask
+            SourceFiles="@(JavaScriptFiles)"
+            ObfuscateJavaScript="false"            
+            DisableOptimizations="false"            
+            DeleteSourceFiles="false"            
+            OutputFile="$(JavaScriptOutputFile)"            
+            /> 				       
+    </Target>
+</Project>

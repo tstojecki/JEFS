@@ -1,1 +1,390 @@
-/*  JEFS - Javascript Editor for SharePoint, MIT License, (c) Tomek Stojecki */var JEFS=JEFS||{};JEFS.$=jQuery.noConflict(!0),JEFS.script="",JEFS.includes="<!-- jefs script references -->",JEFS.siteServerRelativeUrl=null,function(a,b,c){function d(){var b='<?xml version="1.0" encoding="utf-8"?>             <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">             <soap:Body>                 <GetListItems xmlns="http://schemas.microsoft.com/sharepoint/soap/">                     <listName>JEFS</listName>                     <viewFields>                     <ViewFields>                         <FieldRef Name="Title" />                         <FieldRef Name="Content" />                         <FieldRef Name="HeadContent" />                     </ViewFields>                     </viewFields>                     <query>                     <Query>                         <Where><Eq><FieldRef Name="Title"/><Value Type="Text">'+(location.pathname.indexOf("%20")>0?location.pathname:encodeURI(location.pathname))+"</Value></Eq></Where>                     </Query>                     </query>                     <QueryOptions>                     <queryOptions>                         <IncludeMandatoryColumns>FALSE</IncludeMandatoryColumns>                     </queryOptions>                     </QueryOptions>                 </GetListItems>             </soap:Body>         </soap:Envelope>";a.ajax({url:JEFS.siteServerRelativeUrl+"_vti_bin/lists.asmx",type:"POST",contentType:'text/xml;charset="utf-8"',dataType:"xml",data:b,async:!1}).done(function(b){var c=a(b).find("*").filter("z\\:row");c.length>0&&(JEFS.script=c.first().attr("ows_Content"),JEFS.includes=c.first().attr("ows_HeadContent"))}).fail(function(a,b,c){throw"The SOAP call to GetListItems failed with the error of: "+c.toString()})}a(c).ready(function(){function g(){a("head").append('<script type="text/javascript">'+JEFS.script+"</script>")}var b,c,e=!1,f=[];_spPageContextInfo&&(b=_spPageContextInfo.siteServerRelativeUrl),b.match(/\/$/)||(b+="/"),JEFS.siteServerRelativeUrl=b,d(),a("<link>").appendTo("head").attr({rel:"stylesheet",type:"text/css",href:b+"lists/JEFS/codemirror.css"}),JEFS.includes!==""&&(a(JEFS.includes).filter("script").each(function(){f.push(a(this).attr("src"))}),f.length>0?$LAB.script(f).wait(function(){JEFS.script!==""&&g()}):g())})}(JEFS.$,window,document),JEFS.editor=function(a,b,c,d){function h(){var b=a('<div id="jefs_dialog" style="font-size:10pt"><form><textarea id="jefs_editor"></textarea><textarea id="jefs_resources"></textarea><div style="float:left;width:150px;margin-top: 15px;font-size:10px;color:#000;margin-right:15px;"><input type="checkbox" id="jefs_wrap" /> wrap lines<br /><input type="checkbox" id="jefs_reload" checked="checked" /> reload after save</div><div id="jefs_rpanel" style="text-align:right;margin-top:5px; width:300px;float:right;font-size: 11px;">include: <select id="jefs_libraries"><option value="none">None</option></select><a id="jefs_swap" href="javascript:void(0);" style="margin:0 10px 0 5px;">resources</a><button type="button" id="jefs_save" style="border: solid 1px #c3c3c3;background-color:#f1f1f1;padding: 3px;width: 85px;margin-right:8px;margin-top:15px;color: #21374C;font-size:11px;font-weight: bold;font-family: verdana;">save</button></div><div style="clear:both;"></div></form></div>');e={main:b,editorMainArea:b.find("#jefs_editor"),editorResArea:b.find("#jefs_resources"),optionWrap:b.find("#jefs_wrap"),optionReload:b.find("#jefs_reload"),buttonSwap:b.find("#jefs_swap"),buttonSave:b.find("#jefs_save"),selectLibraries:b.find("#jefs_libraries"),rightPanel:b.find("#jefs_rpanel")},i(),f=j(e.editorMainArea.get(0),{value:JEFS.script,mode:"javascript",lineNumbers:!0,theme:"night",lineWrapping:e.optionWrap.is(":checked")}),e.editorMainWrapper=a(f.getWrapperElement()),g=j(e.editorResArea.get(0),{value:JEFS.includes,mode:"text/html",theme:"default"}),e.editorResWrapper=a(g.getWrapperElement()),e.editorResWrapper.hide(),p()}function i(){e.buttonSave.click(l),e.buttonSwap.click(o),e.optionWrap.click(n),e.selectLibraries.change(m)}function j(a,b){return CodeMirror(function(b){a.parentNode.replaceChild(b,a)},b)}function k(){return e.editorMainWrapper.is(":visible")}function l(){var a=new SP.ClientContext.get_current,c=a.get_site().get_rootWeb(),d=c.get_lists().getByTitle("JEFS"),h='<View><Query><Where><Eq><FieldRef Name="Title" /><Value Type="Text">'+(location.pathname.indexOf("%20")>0?location.pathname:encodeURI(location.pathname))+'</Value></Eq></Where></Query><ViewFields><FieldRef Name="Title" /></ViewFields></View>',i=new SP.CamlQuery;i.set_viewXml(h);var j=d.getItems(i);a.load(j),a.executeQueryAsync(function(){var c=j.getEnumerator(),h=null;while(c.moveNext())h=c.get_current();if(h==null){var i=new SP.ListItemCreationInformation;h=d.addItem(i),h.set_item("Title",location.pathname)}h.set_item("Content",f.getValue()),h.set_item("HeadContent",g.getValue()),h.update();var k=SP.UI.Notify.addNotification("Saving content...",!0);a.executeQueryAsync(function(){SP.UI.Notify.removeNotification(k),SP.UI.Status.addStatus("Javascript Editor content saved!");if(e.optionReload.is(":checked")){b.location.reload(!0);return}},function(a,b){var c=SP.UI.Status.addStatus("Javascript Editor failed while saving content. Message:"+b.get_message());SP.UI.Status.setStatusPriColor(c,"red")})},function(a,b){var c=SP.UI.Status.addStatus("Javascript Editor failed while getting content. Message:"+b.get_message());SP.UI.Status.setStatusPriColor(c,"red")}),SP.UI.ModalDialog.commonModalDialogClose(SP.UI.DialogResult.cancel,"Save clicked")}function m(){var a=g.getValue()||"",b=e.selectLibraries.val(),c='<script class="jefs" type="text/javascript" src="'+e.selectLibraries.val()+'"></script>';b==="none"?a="<!-- JEFS script includes -->":a.match(c)||(a=a+"\n"+c),g.setValue(a),k()&&o()}function n(){f.setOption("lineWrapping",e.optionWrap.is(":checked"))}function o(){k()?(e.editorMainWrapper.hide(),e.editorResWrapper.show(),e.optionWrap.attr({disabled:"disabled"}),e.buttonSwap.html("back to js"),g.refresh()):(e.editorMainWrapper.show(),e.editorResWrapper.hide(),e.optionWrap.removeAttr("disabled"),e.buttonSwap.html("resources"),f.refresh())}function p(){a.ajax({url:JEFS.siteServerRelativeUrl+"lists/jefs/libraries.txt",dataType:"text"}).done(function(b){var c='<option value="none">None</option>',d=0,f=JSON.parse?JSON.parse(b):a.parseJSON(b);for(;d<f.length;d++)c+='<option value="'+f[d].url+'">'+f[d].name+"</option>";e.selectLibraries.html(c)}).fail(function(a,b,c){throw"The ajax call to get the list of libraries failed call with the following error: "+c.toString()})}var e=null,f=null,g=null;return{maximized:!1,launch:function(){var d,g,i,j=!1,k=0;h(),d={html:e.main.get(0),autoSize:!0,allowMaximize:!0,title:"Type your javascript here",showClose:!0},i=SP.UI.ModalDialog.get_childDialog();if(i!=null){j=confirm("Due to an issue with displaying multiple dialogs at once, the editor will close the dialog and open the form in a full page mode. The javascript you save will work either in a dialog or a full page mode. Do you want to continue?");if(!j)return;k=b.location.href.indexOf("?"),b.parent.location.href=k>0?b.location.href.substring(0,k):b.location.href;return}g=SP.UI.ModalDialog.showModalDialog(d),f.refresh(),a(".ms-dlgCloseBtn[title=Maximize]").click(function(){var b,d,g,h,i,j=600;b=a("#jefs_dialog"),d=b.find("div.CodeMirror-scroll:eq(0)"),g=b.find("div.CodeMirror-scroll:eq(1)"),this.maximized?(d.css("height",""),g.css("height",""),e.rightPanel.css("width","300px"),this.maximized=!1):(a.browser.msie?(c.documentElement.clientHeight&&(j=c.documentElement.clientHeight),c.body.clientHeight&&(j=c.body.clientHeight),i=(j-115).toString()+"px"):(h=parseInt(b.parent().parent().css("height").replace("px","")),i=(h-95).toString()+"px"),d.css("height",i),g.css("height",i),e.rightPanel.css("width",""),this.maximized=!0),f.refresh()})}}}(JEFS.$,window,document);
+(function (jefs, $) {
+
+    jefs.config = {
+        siteCollectionUrl: null,
+        isValid: function () {
+            return this.siteCollectionUrl !== null;
+        }
+    }
+
+    // utility functions
+    // log errors 
+    jefs.log = function (args) {
+        if (typeof console !== "undefined" && typeof console.log !== "undefined") {
+            console.log(args);
+        }
+    }
+
+    jefs.parseQuery = function (query) {
+        var urlParams = {},
+            e,
+            a = /\+/g,  // Regex for replacing addition symbol with a space
+            r = /([^&=]+)=?([^&]*)/g,
+            d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+            q = window.location.search.substring(1);
+
+        while (e = r.exec(q))
+            urlParams[d(e[1])] = d(e[2]);
+
+        return urlParams;
+    }
+
+    // plugin utility 
+    $.fn.jefs = function () {
+        var name,
+            methods = $.fn.jefs.methods;
+
+        for (name in methods) {
+            if (methods.hasOwnProperty(name) && typeof methods[name] == "function") {
+                this[name] = methods[name];
+            }
+        }
+
+        return this; // returns jQuery modified object
+    }
+    $.fn.jefs.methods = {};
+
+    jefs.plugin = function (name, method) {
+        if (typeof method == "function") {
+            $.fn.jefs.methods[name] = method;
+        }
+    }
+
+    /**
+    CREDITS: http://blogs.sitepointstatic.com/examples/tech/json-serialization/json-serialization.js
+    **/
+
+    jefs.stringify = function stringify(obj) {
+        var t = typeof (obj);
+        if (t != "object" || obj === null) {
+            // simple data type
+            if (t == "string") obj = '"' + obj + '"';
+            return String(obj);
+        } else {
+            // recurse array or object
+            var n, v, json = [], arr = (obj && obj.constructor == Array);
+
+            for (n in obj) {
+                v = obj[n];
+                t = typeof (v);
+                if (obj.hasOwnProperty(n)) {
+                    if (t == "string") v = '"' + v + '"'; else if (t == "object" && v !== null) v = jQuery.stringify(v);
+                    json.push((arr ? "" : '"' + n + '":') + String(v));
+                }
+            }
+            return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+        }
+    }
+
+    /*	
+
+    jQuery pub/sub plugin by Peter Higgins (dante@dojotoolkit.org)
+
+    Loosely based on Dojo publish/subscribe API, limited in scope. Rewritten blindly.
+
+    Original is (c) Dojo Foundation 2004-2010. Released under either AFL or new BSD, see:
+    http://dojofoundation.org/license for more information.
+
+    JEFS: Modified to store the methods on the jefs object to avoid namespace collisions
+
+    */
+
+    // the topic/subscription hash
+    var cache = {};
+
+    jefs.publish = function (/* String */topic, /* Array? */args) {
+        // summary: 
+        //		Publish some data on a named topic.
+        // topic: String
+        //		The channel to publish on
+        // args: Array?
+        //		The data to publish. Each array item is converted into an ordered
+        //		arguments on the subscribed functions. 
+        //
+        // example:
+        //		Publish stuff on '/some/topic'. Anything subscribed will be called
+        //		with a function signature like: function(a,b,c){ ... }
+        //
+        //	|		jefs.publish("/some/topic", ["a","b","c"]);        
+        cache[topic] && $.each(cache[topic], function () {
+
+            try {
+                this.apply(this, args || []);
+            } catch (e) {
+                jefs.log("Callback error. Topic: " + topic, "Error details: " + e);
+                if (typeof jefs.errorNoty != "undefined") 
+                    jefs.errorNoty();
+            }
+        });
+    };
+
+    jefs.subscribe = function (/* String */topic, /* Function */callback) {
+        // summary:
+        //		Register a callback on a named topic.
+        // topic: String
+        //		The channel to subscribe to
+        // callback: Function
+        //		The handler event. Anytime something is $.publish'ed on a 
+        //		subscribed channel, the callback will be called with the
+        //		published array as ordered arguments.
+        //
+        // returns: Array
+        //		A handle which can be used to unsubscribe this particular subscription.
+        //	
+        // example:
+        //	|	jefs.subscribe("/some/topic", function(a, b, c){ /* handle data */ });
+
+        if (!cache[topic]) {
+            cache[topic] = [];
+        }
+        cache[topic].push(callback);
+        return [topic, callback]; // Array
+    };
+
+    jefs.unsubscribe = function (/* Array */handle) {
+        // summary:
+        //		Disconnect a subscribed function for a topic.
+        // handle: Array
+        //		The return value from a $.subscribe call.
+        // example:
+        //	|	var handle = $.subscribe("/something", function(){});
+        //	|	jefs.unsubscribe(handle);
+
+        var t = handle[0];
+        cache[t] && $.each(cache[t], function (idx) {
+            if (this == handle[1]) {
+                cache[t].splice(idx, 1);
+            }
+        });
+    };
+
+
+})(this.jefs = this.jefs || {}, jQuery);
+
+(function (jefs, $) {
+
+    // get and save sp content
+    jefs.item = {
+
+        id: 0,
+        siteCollectionUrl: "",
+        js: "",
+        html: "",
+        css: "",
+        lib: "",
+        webPartId: "",
+        webPartZone: "",
+
+        init: function (d) {
+
+            if (d != null) {
+                this.js = d.js;
+                this.html = d.html;
+                this.css = d.css;
+                this.lib = d.lib;
+            }
+
+            return this;
+        },
+
+        get: function (url) {
+
+            // using REST api as of v2.0 
+            var dataUrl = jefs.config.siteCollectionUrl + "_vti_bin/listdata.svc/JEFS()?$filter=Title eq '" + url + "'&$top=1",
+                that = this;
+
+            $.ajax({
+                url: dataUrl,
+                dataType: "json",
+                async: false
+            })
+            .done(function (data) {
+                var items = data.d,
+                    item;
+
+                if (items.length > 0) {
+                    item = items[0];
+                    that.id = item.Id;
+                    that.js = item.JS || that.js;
+                    that.html = item.HTML || that.html;
+                    that.css = item.CSS || that.css;
+                    that.lib = item.LIB || that.lib;
+                    that.webPartId = item.WebPartID || that.webPartId;
+                    that.webPartZone = item.WebPartZone || that.webPartZone;
+                }
+
+                jefs.publish("jefs/item/loaded", [jefs.item]);
+            })
+            .error(function (jqXHR, status, err) {
+                jefs.log("JEFS encountered an error while retrieving content. Make sure the list exists at the top of the site collection and that you have enough permissions to access it.");
+                jefs.log(err);
+
+                jefs.publish("jefs/error", [err]);
+            });
+
+            return this;
+        },
+
+        toJson: function (url) {
+            var o = {
+                "Title": url,
+                "JS": quote(this.js),
+                "HTML": quote(this.html),
+                "CSS": quote(this.css),
+                "LIB": quote(this.lib),
+                "WebPartID": this.webPartId,
+                "WebPartZone": this.webPartZone
+            };
+
+            return jefs.stringify(o);
+
+            function quote(str) {
+                return str.replace(/[\"]/g, '\\\"');
+            };
+        },
+
+        add: function (url) {
+            var that = this;
+
+            $.ajax({
+                type: "POST",
+                url: jefs.config.siteCollectionUrl + "_vti_bin/listdata.svc/JEFS",
+                contentType: "application/json",
+                processData: false,
+                data: this.toJson(url)
+            })
+            .done(function (doc) {
+                var $id = $(doc).find("*").filter("d\\:id");
+                if ($id.length > 0) {
+                    that.id = parseInt($id.text());
+                    jefs.publish("jefs/item/saved", that);
+                }
+            })
+            .error(function (jqXHR, status, err) {
+                jefs.log("JEFS ecountered an error while adding content to the list.");
+                jefs.log(err);
+
+                jefs.publish("jefs/error", [err]);
+            });
+
+        },
+
+        save: function (url) {
+            var that = this;
+
+            if (this.id == 0) {
+                this.add(url);
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: jefs.config.siteCollectionUrl + "_vti_bin/listdata.svc/JEFS(" + this.id + ")",
+                    contentType: "application/json; charset=utf-8",
+                    processData: false,
+                    beforeSend: beforeSendFunction,
+                    data: this.toJson(url),
+                    dataType: "json",
+                    success: function () {
+                        jefs.publish("jefs/item/saved", that);
+                    },
+                    error: function (jqXHR, status, err) {
+                        jefs.log("JEFS ecountered an error while saving content to the list.");
+                        jefs.log(err);
+
+                        jefs.publish("jefs/error", [err]);
+                    }
+                });
+            }
+
+            function beforeSendFunction(xhr) {
+                xhr.setRequestHeader("If-Match", "*");
+                // Using MERGE so that the entire entity doesn't need to be sent over the wire.
+                xhr.setRequestHeader("X-HTTP-Method", "MERGE");
+            }
+        }
+    };
+
+})(this.jefs, jQuery);
+
+(function (jefs, $, lab) {
+
+    jefs.plugin("load", function (options) {
+
+        var that = this,
+            jsfiles = [],
+            opt = $.extend(opt, options);
+
+        // css first, for now will not block until it is loaded
+        // will see if timing becomes an issue here
+        if (opt.css) {
+            // ie 'friendly' technique
+            that.append(createStyleTag(opt.css));
+        }
+
+        if (opt.lib) {
+            $(opt.lib).filter("script").each(function () {
+                jsfiles.push($(this).attr("src"));
+            });
+        }
+
+        if (jsfiles.length > 0) {
+            lab.script(jsfiles).wait(function () {
+                // wait for all the dependencies to load before loading main
+                if (opt.js)                
+                    lab.script(jefs.config.siteCollectionUrl + "lists/jefs/attachments/" + opt.id + "/jefs-my.js");
+            });
+        }
+        else {
+            if (opt.js) {                
+                lab.script(jefs.config.siteCollectionUrl + "lists/jefs/attachments/" + opt.id + "/jefs-my.js");
+            }
+        }
+
+        function createStyleTag(style) {            
+            return '<style type="text/css">' + style + '</style>';
+        }
+    });
+
+})(this.jefs, jQuery, $LAB);
+
+(function (jefs, $, window) {
+
+    $(function () {
+
+        var item,
+            sourceUrl = window.location.pathname;
+
+        if (typeof window._spPageContextInfo == "undefined") {
+            jefs.log("_spPageContextInfo unavailable (sharepoint global variable missing). JEFS will not run scripts without this mandatory parameter.");
+        }
+        else {
+            $ = jefs.$ = jQuery.noConflict(true);
+
+            jefs.config.siteCollectionUrl = window._spPageContextInfo.siteServerRelativeUrl;
+            if (!jefs.config.siteCollectionUrl.match(/\/$/))
+                jefs.config.siteCollectionUrl = jefs.config.siteCollectionUrl + "/";
+
+            item = jefs
+                .item
+                .get(sourceUrl);
+
+            $("head")
+                .jefs()
+                .load(item);
+        }
+
+        jefs.editor = {};
+        jefs.editor.launch = function () {
+
+            if (jefs.config.isValid()) {
+                window.location.href = jefs.config.siteCollectionUrl + "lists/jefs/jefs.aspx?source=" + sourceUrl + "&scu=" + jefs.config.siteCollectionUrl;
+            }
+            else {
+                jefs.log("JEFS: could not get site collection url.");
+            }
+        }
+
+    })
+
+})(this.jefs = this.jefs, jQuery, window);
+

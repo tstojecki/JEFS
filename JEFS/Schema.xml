@@ -5,9 +5,14 @@
         <Folder TargetName="Item" />
         <FieldRefs>
           <FieldRef ID="{c042a256-787d-4a6f-8a8a-cf6ab767f12d}" Name="ContentType" />
-          <FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" DisplayName="Destination Url" Required="TRUE" />
-          <FieldRef ID="{07d93d36-fd5f-4de6-be20-d53c0d29f6c0}" Name="Content" />
-          <FieldRef ID="{ebe1f773-2277-42ff-8d01-d5d104586d5d}" Name="HeadContent" />
+          <FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="TRUE" />
+          <FieldRef ID="{adfdc7eb-e718-4ba7-a23d-38c50079315f}" Name="JS" Required="FALSE" />
+          <FieldRef ID="{4efd6219-9cd1-4dd4-974f-54c729892671}" Name="HTML" Required="FALSE" />
+          <FieldRef ID="{030b3005-7583-4d99-adc5-32f8143e2ab3}" Name="CSS" Required="FALSE" />
+          <FieldRef ID="{09500c61-2334-4bdf-91d0-4e3bd6737571}" Name="LIB" Required="FALSE" />
+          <FieldRef ID="{7dcdaab0-0e97-47d1-a22d-d92af3dad400}" Name="Is_x0020_Draft" />
+          <FieldRef ID="{cf041e8f-6023-42cc-8be4-6ab49a312cdb}" Name="WebPartID" />
+          <FieldRef ID="{b5191ffb-dcc2-4a95-8698-fb3d516882d5}" Name="WebPartZone" />
         </FieldRefs>
         <XmlDocuments>
           <XmlDocument NamespaceURI="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms">
@@ -40,9 +45,7 @@
     </ContentTypes>
     <Fields>
       <Field ID="{03e45e84-1992-4d42-9116-26f756012634}" RowOrdinal="0" Type="ContentTypeId" Sealed="TRUE" ReadOnly="TRUE" Hidden="TRUE" DisplayName="Content Type ID" Name="ContentTypeId" DisplaceOnUpgrade="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="ContentTypeId" ColName="tp_ContentTypeId" FromBaseType="TRUE" />
-      <Field ID="{07d93d36-fd5f-4de6-be20-d53c0d29f6c0}" DisplayName="Content" Type="Note" Required="TRUE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE" IsolateStyles="TRUE" Sortable="FALSE" SourceID="{30b161a2-9a02-4350-a7a3-a9c665f1fc3d}" StaticName="Content" Name="Content" RowOrdinal="0" />
-      <Field ID="{ebe1f773-2277-42ff-8d01-d5d104586d5d}" DisplayName="Head Content" Type="Note" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE" IsolateStyles="TRUE" Sortable="FALSE" SourceID="{30b161a2-9a02-4350-a7a3-a9c665f1fc3d}" StaticName="HeadContent" Name="HeadContent" RowOrdinal="0" />
-      <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" Group="_Hidden" Type="Text" DisplayName="Destination Url" Required="TRUE" FromBaseType="TRUE" EnforceUniqueValues="TRUE" Indexed="TRUE" MaxLength="255" ColName="nvarchar1" RowOrdinal="0" />
+      <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="Title" Required="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" FromBaseType="TRUE" ColName="nvarchar1" EnforceUniqueValues="FALSE" Indexed="FALSE" MaxLength="255" RowOrdinal="0" />
       <Field ID="{34ad21eb-75bd-4544-8c73-0e08330291fe}" ReadOnly="TRUE" Type="Note" Name="_ModerationComments" DisplayName="Approver Comments" Hidden="TRUE" CanToggleHidden="TRUE" Filterable="FALSE" Sortable="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_ModerationComments" FromBaseType="TRUE" ColName="ntext1" />
       <Field ID="{bc91a437-52e7-49e1-8c4e-4698904b2b6d}" ReadOnly="TRUE" Type="Computed" Name="LinkTitleNoMenu" DisplayName="Destination Url" Dir="" DisplayNameSrcField="Title" AuthoringInfo="(linked to item)" EnableLookup="TRUE" ListItemMenuAllowed="Prohibited" LinkToItemAllowed="Prohibited" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="LinkTitleNoMenu" FromBaseType="TRUE">
         <FieldRefs>
@@ -156,6 +159,15 @@
         </DisplayPattern>
       </Field>
       <Field ID="{39360f11-34cf-4356-9945-25c44e68dade}" ReadOnly="TRUE" Hidden="TRUE" Type="Text" Name="File_x0020_Type" DisplaceOnUpgrade="TRUE" DisplayName="File Type" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="File_x0020_Type" FromBaseType="TRUE" ColName="nvarchar2" />
+      <Field Type="Note" DisplayName="JS" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE" Sortable="FALSE" ID="{adfdc7eb-e718-4ba7-a23d-38c50079315f}" SourceID="{$ListId:Lists/JEFS;}" StaticName="JS" Name="JS" ColName="ntext2" RowOrdinal="0" />
+      <Field Type="Note" DisplayName="HTML" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE" Sortable="FALSE" ID="{4efd6219-9cd1-4dd4-974f-54c729892671}" SourceID="{$ListId:Lists/JEFS;}" StaticName="HTML" Name="HTML" ColName="ntext3" RowOrdinal="0" />
+      <Field Type="Note" DisplayName="CSS" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE" Sortable="FALSE" ID="{030b3005-7583-4d99-adc5-32f8143e2ab3}" SourceID="{$ListId:Lists/JEFS;}" StaticName="CSS" Name="CSS" ColName="ntext4" RowOrdinal="0" />
+      <Field Type="Note" DisplayName="LIB" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE" Sortable="FALSE" ID="{09500c61-2334-4bdf-91d0-4e3bd6737571}" SourceID="{$ListId:Lists/JEFS;}" StaticName="LIB" Name="LIB" ColName="ntext5" RowOrdinal="0" />
+      <Field Type="Boolean" DisplayName="Is Draft" EnforceUniqueValues="FALSE" Indexed="FALSE" ID="{7dcdaab0-0e97-47d1-a22d-d92af3dad400}" SourceID="{$ListId:Lists/JEFS;}" StaticName="Is_x0020_Draft" Name="Is_x0020_Draft" ColName="bit1" RowOrdinal="0">
+        <Default>0</Default>
+      </Field>
+      <Field Type="Text" ID="{cf041e8f-6023-42cc-8be4-6ab49a312cdb}" Name="WebPartID" DisplayName="WebPartID" SourceID="{$ListId:Lists/JEFS;}" StaticName="WebPartID" RowOrdinal="0" />
+      <Field Type="Text" ID="{b5191ffb-dcc2-4a95-8698-fb3d516882d5}" Name="WebPartZone" DisplayName="WebPartZone" SourceID="{$ListId:Lists/JEFS;}" StaticName="WebPartZone" RowOrdinal="0" />
       <Field ID="{1d22ea11-1e32-424e-89ab-9fedbadb6ce1}" ColName="tp_ID" RowOrdinal="0" ReadOnly="TRUE" Type="Counter" Name="ID" PrimaryKey="TRUE" DisplayName="ID" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="ID" FromBaseType="TRUE" />
       <Field ID="{c042a256-787d-4a6f-8a8a-cf6ab767f12d}" Type="Computed" DisplayName="Content Type" Name="ContentType" DisplaceOnUpgrade="TRUE" RenderXMLUsingPattern="TRUE" Sortable="FALSE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="ContentType" Group="_Hidden" PITarget="MicrosoftWindowsSharePointServices" PIAttribute="ContentTypeID" FromBaseType="TRUE">
         <FieldRefs>
@@ -893,7 +905,11 @@
       <Field ID="{b824e17e-a1b3-426e-aecf-f0184d900485}" Name="ItemChildCount" DisplaceOnUpgrade="TRUE" ReadOnly="TRUE" ShowInFileDlg="FALSE" Type="Lookup" DisplayName="Item Child Count" List="Docs" FieldRef="ID" ShowField="ItemChildCount" JoinColName="DoclibRowId" JoinRowOrdinal="0" JoinType="INNER" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="ItemChildCount" FromBaseType="TRUE" />
       <Field ID="{960ff01f-2b6d-4f1b-9c3f-e19ad8927341}" Name="FolderChildCount" DisplaceOnUpgrade="TRUE" ReadOnly="TRUE" ShowInFileDlg="FALSE" Type="Lookup" DisplayName="Folder Child Count" List="Docs" FieldRef="ID" ShowField="FolderChildCount" JoinColName="DoclibRowId" JoinRowOrdinal="0" JoinType="INNER" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="FolderChildCount" FromBaseType="TRUE" />
     </Fields>
-    <Forms />
+    <Forms>
+      <Form Type="DisplayForm" Url="DispForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+      <Form Type="EditForm" Url="EditForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+      <Form Type="NewForm" Url="NewForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+    </Forms>
     <Views>
       <View DisplayName="All Items" DefaultView="TRUE" BaseViewID="1" Type="HTML" MobileView="TRUE" MobileDefaultView="TRUE" ImageUrl="/_layouts/images/generic.png" XslLink="main.xsl" WebPartZoneID="Main" WebPartOrder="1" Url="AllItems.aspx" SetupPath="pages\viewpage.aspx">
         <XslLink>main.xsl</XslLink>
@@ -903,13 +919,17 @@
           </OrderBy>
         </Query>
         <ViewFields>
+          <FieldRef Name="Attachments" />
           <FieldRef Name="LinkTitle" />
-          <FieldRef Name="Content" />
-          <FieldRef Name="HeadContent" />
+          <FieldRef Name="JS" />
+          <FieldRef Name="HTML" />
+          <FieldRef Name="CSS" />
+          <FieldRef Name="LIB" />
+          <FieldRef Name="Is_x0020_Draft" />
+          <FieldRef Name="WebPartID" />
+          <FieldRef Name="WebPartZone" />
         </ViewFields>
         <RowLimit Paged="TRUE">30</RowLimit>
-        <Aggregations Value="Off" />
-        <ViewStyle ID="0" />
       </View>
     </Views>
   </MetaData>

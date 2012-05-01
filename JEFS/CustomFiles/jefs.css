@@ -1,0 +1,583 @@
+﻿#jefs-cpanel {    
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    height: 43px;
+    border-bottom: 1px solid #ccc;   
+    background-color: #f1f1f1;     
+}
+
+.jefs-cpanel-left {    
+    margin: 6px 2px 0 27px;
+    float: left;
+} 
+
+#jefs-cpanel-source {
+    margin: 14px 25px;
+    float: left;
+}
+
+.jefs-red {
+    color: red;
+}
+
+.jefs-cpanel-right {
+    float: right;    
+    margin: 7px 10px 0 0;    
+}
+
+#jefs-editors {
+    font-size: 10pt;
+    top: 44px;
+    width: 100%;
+}
+
+.jefs-hide {
+    display:none;
+}
+
+.jefs-stretch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.jefs-js {
+    right: 50%;    
+}
+
+div.jefs-js {
+  border-right: 1px solid #ccc;
+}
+
+.jefs-html {
+    left: 50%;
+}
+
+.jefs-editbox .CodeMirror {
+    height: 100%;
+    top: 0;
+    bottom: 0;    
+}
+
+.CodeMirror-scroll {
+    height:100%;      
+}
+
+.jefs-resize {
+  cursor: ew-resize;
+  background: #ccc url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAMCAYAAACnfgdqAAAAMElEQVQIHWP8//8/AxRoMAA5ZkDcAsT/mYCiN4GYBYidGIECUFUMDCAZOEDmUNkAAKKgK80+TE8oAAAAAElFTkSuQmCC) no-repeat left 45%;
+}
+
+.ie .jefs-resize {
+  cursor: w-resize;
+}
+
+.jefs-block {
+  border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  width: 100%; 
+  height: 100%;
+  background: transparent;
+  cursor: ew-resize;
+}
+
+.ie .block {
+  cursor: w-resize;
+}
+
+/* CodeMirror css */
+.CodeMirror {
+  line-height: 1em;
+  font-family: monospace;
+}
+
+.CodeMirror-scroll {
+  overflow: auto;
+  height: 300px;
+  /* This is needed to prevent an IE[67] bug where the scrolled content
+     is visible outside of the scrolling box. */
+  position: relative;
+}
+
+.CodeMirror-gutter {
+  position: absolute; left: 0; top: 0;
+  z-index: 10;
+  background-color: #f7f7f7;
+  border-right: 1px solid #eee;
+  min-width: 2em;
+  height: 100%;
+}
+.CodeMirror-gutter-text {
+  color: #aaa;
+  text-align: right;
+  padding: .4em .2em .4em .4em;
+  white-space: pre !important;
+}
+.CodeMirror-lines {
+  padding: .4em;
+}
+
+.CodeMirror pre {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  border-width: 0; margin: 0; padding: 0; background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0; margin: 0;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+.CodeMirror-wrap pre {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+.CodeMirror-wrap .CodeMirror-scroll {
+  overflow-x: hidden;
+}
+
+.CodeMirror textarea {
+  outline: none !important;
+}
+
+.CodeMirror pre.CodeMirror-cursor {
+  z-index: 10;
+  position: absolute;
+  visibility: hidden;
+  border-left: 1px solid black;
+}
+.CodeMirror-focused pre.CodeMirror-cursor {
+  visibility: visible;
+}
+
+span.CodeMirror-selected { background: #d9d9d9; }
+.CodeMirror-focused span.CodeMirror-selected { background: #d2dcf8; }
+
+.CodeMirror-searching {background: #ffa;}
+
+/* Default theme */
+
+.cm-s-default span.cm-keyword {color: #708;}
+.cm-s-default span.cm-atom {color: #219;}
+.cm-s-default span.cm-number {color: #164;}
+.cm-s-default span.cm-def {color: #00f;}
+.cm-s-default span.cm-variable {color: black;}
+.cm-s-default span.cm-variable-2 {color: #05a;}
+.cm-s-default span.cm-variable-3 {color: #085;}
+.cm-s-default span.cm-property {color: black;}
+.cm-s-default span.cm-operator {color: black;}
+.cm-s-default span.cm-comment {color: #a50;}
+.cm-s-default span.cm-string {color: #a11;}
+.cm-s-default span.cm-string-2 {color: #f50;}
+.cm-s-default span.cm-meta {color: #555;}
+.cm-s-default span.cm-error {color: #f00;}
+.cm-s-default span.cm-qualifier {color: #555;}
+.cm-s-default span.cm-builtin {color: #30a;}
+.cm-s-default span.cm-bracket {color: #cc7;}
+.cm-s-default span.cm-tag {color: #170;}
+.cm-s-default span.cm-attribute {color: #00c;}
+.cm-s-default span.cm-header {color: #a0a;}
+.cm-s-default span.cm-quote {color: #090;}
+.cm-s-default span.cm-hr {color: #999;}
+.cm-s-default span.cm-link {color: #00c;}
+
+span.cm-header, span.cm-strong {font-weight: bold;}
+span.cm-em {font-style: italic;}
+span.cm-emstrong {font-style: italic; font-weight: bold;}
+span.cm-link {text-decoration: underline;}
+
+div.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}
+div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
+
+/* Loosely based on the Midnight Textmate theme */
+
+.cm-s-night { background: #0a001f; color: #f8f8f8; }
+.cm-s-night span.CodeMirror-selected { background: #a8f !important; }
+.cm-s-night .CodeMirror-gutter { background: #0a001f; border-right: 1px solid #aaa; }
+.cm-s-night .CodeMirror-gutter-text { color: #f8f8f8; }
+.cm-s-night .CodeMirror-cursor { border-left: 1px solid white !important; }
+
+.cm-s-night span.cm-comment { color: #6900a1; }
+.cm-s-night span.cm-atom { color: #845dc4; }
+.cm-s-night span.cm-number, .cm-s-night span.cm-attribute { color: #ffd500; }
+.cm-s-night span.cm-keyword { color: #599eff; }
+.cm-s-night span.cm-string { color: #37f14a; }
+.cm-s-night span.cm-meta { color: #7678e2; }
+.cm-s-night span.cm-variable-2, .cm-s-night span.cm-tag { color: #99b2ff; }
+.cm-s-night span.cm-variable-3, .cm-s-night span.cm-def { color: white; }
+.cm-s-night span.cm-error { color: #9d1e15; }
+.cm-s-night span.cm-bracket { color: #8da6ce; }
+.cm-s-night span.cm-comment { color: #6900a1; }
+.cm-s-night span.cm-builtin, .cm-s-night span.cm-special { color: #ff9e59; }
+
+/*!
+ * Bootstrap v2.0.2
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+.jefs-btn {
+  display: inline-block;  
+    border-left: 1px solid #b3b3b3;
+    border-right: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #b3b3b3;
+    display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+    padding: 4px 10px 4px;
+    margin-bottom: 0;
+    font-size: 13px;
+    line-height: 18px;
+    color: #333333;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+    background-color: #f5f5f5;
+    background-repeat: repeat-x;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    margin-left: .3em;
+    background-image: linear-gradient(top, #ffffff, #e6e6e6);
+}
+.jefs-btn:hover,
+.jefs-btn:active,
+.jefs-btn.active,
+.jefs-btn.disabled,
+.jefs-btn[disabled] {
+  background-color: #e6e6e6;
+}
+.jefs-btn:active,
+.jefs-btn.active {
+  background-color: #cccccc \9;
+}
+.jefs-btn:first-child {
+  *margin-left: 0;
+}
+.jefs-btn:hover {
+  color: #333333;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -ms-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+.jefs-btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.jefs-btn.active,
+.jefs-btn:active {
+  background-image: none;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #e6e6e6;
+  background-color: #d9d9d9 \9;
+  outline: 0;
+}
+
+.jefs-btn-primary,
+.jefs-btn-primary:hover {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+.jefs-btn-primary.active {
+  color: rgba(255, 255, 255, 0.75);
+}
+.jefs-btn-primary {
+  background-color: #0074cc;
+  background-repeat: repeat-x;
+    background-image: linear-gradient(top, #0088cc, #0055cc);
+    border-left-color: #0055cc;
+    border-right-color: #0055cc;
+    border-top-color: #0055cc;
+    border-bottom-color: #003580;
+}
+.jefs-btn-primary:hover,
+.jefs-btn-primary:active,
+.jefs-btn-primary.active,
+.jefs-btn-primary.disabled,
+.jefs-btn-primary[disabled] {
+  background-color: #0055cc;
+}
+.jefs-btn-primary:active,
+.jefs-btn-primary.active {
+  background-color: #004099 \9;
+}
+
+select.jefs {
+  display: inline-block;  
+  padding: 4px;
+  margin-bottom: 9px;  
+  line-height: 18px;
+  color: #555555;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* NOTY CORE STYLES */
+
+/* noty bar */
+.noty_bar {
+	position: fixed;
+	display: none;
+	z-index: 9999999;
+}
+	
+/* noty_message */
+.noty_bar .noty_message {
+	text-align: center;
+}
+	
+/* noty close button */
+.noty_bar .noty_close {
+	cursor: pointer;
+}
+	
+/* noty modal */
+.noty_modal {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	z-index: 10000;
+	opacity: 0.6;
+	display: none;
+	left: 0;
+	top: 0;
+}
+	
+/* noty container for noty_layout_topLeft & noty_layout_topRight */
+ul.noty_cont {
+	position: fixed;
+	z-index: 10000000;
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	width: 300px;
+}
+ul.noty_cont li {
+	position: relative;
+	float: left;
+	clear: both;
+	list-style: none;
+	padding: 0px;
+	margin: 10px 0 0 0;
+	width: 300px; /* Fix for: http://bugs.jquery.com/ticket/2278 */
+}
+ul.noty_cont.noty_layout_topLeft {left:20px; top:20px;}
+ul.noty_cont.noty_layout_topRight {right:10px; top:44px;}
+ul.noty_cont.noty_layout_bottomLeft {left:20px; bottom:20px}
+ul.noty_cont.noty_layout_bottomRight {right:40px; bottom:20px}
+ul.noty_cont.noty_layout_topRight li {float:right}
+
+/* LAYOUTS */
+
+/* noty_layout_top */
+.noty_bar.noty_layout_top {
+	top: 0;
+	left: 0;
+	width: 100%;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+
+/* noty_layout_bottom */
+.noty_bar.noty_layout_bottom {
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+
+/* noty_layout_center */
+.noty_bar.noty_layout_center {
+	top: 40%;
+}
+	
+/* noty_layout_topLeft & noty_layout_topRight */
+.noty_bar.noty_layout_topLeft, 
+.noty_bar.noty_layout_topRight,
+.noty_bar.noty_layout_bottomLeft,
+.noty_bar.noty_layout_bottomRight {
+	width: 100%;
+	clear: both;
+	position: relative;
+}
+	
+.noty_bar.noty_layout_topLeft .noty_message, 
+.noty_bar.noty_layout_topRight .noty_message,
+.noty_bar.noty_layout_bottomLeft .noty_message,
+.noty_bar.noty_layout_bottomRight .noty_message {
+	text-align: left;
+}
+	
+/* noty_layout_topCenter */
+.noty_bar.noty_layout_topCenter {
+	top: 20px;
+}
+	
+/* CORE STYLES*/
+
+/* noty bar */
+.noty_bar.noty_theme_twitter {
+font-size: 13px;
+line-height: 18px;
+text-shadow: 0 1px 0 #fff;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+	
+/* custom container */
+.noty_custom_container.noty_theme_twitter.noty_layout_inline {
+	position: relative;
+}
+	
+/* custom growl container */
+.noty_custom_container.noty_theme_twitter.noty_layout_inline .noty_cont.noty_layout_inline {
+	position: static;
+}
+	/* custom noty bar */
+	.noty_custom_container.noty_theme_twitter.noty_layout_inline .noty_bar {
+		position: static;
+	}
+		.noty_custom_container.noty_theme_twitter.noty_layout_inline .noty_bar .noty_message {
+			font-size: 13px;
+			padding: 4px;
+		}
+			.noty_custom_container.noty_theme_twitter.noty_layout_inline .noty_bar .noty_message .noty_buttons {
+				margin-top: -1px;
+			}
+	
+/* noty_message */
+.noty_bar.noty_theme_twitter .noty_message {
+	padding: 8px 14px;
+}
+/* noty_has_close_button */
+.noty_bar.noty_theme_twitter.noty_closable .noty_message {
+	padding: 8px 35px 8px 14px;
+}
+	
+/* noty_buttons */
+.noty_bar.noty_theme_twitter .noty_message .noty_buttons {
+	float: right;
+	margin-top: -5px;
+	margin-left: 4px;
+}
+	
+/* noty_button */
+.noty_bar.noty_theme_twitter .noty_message .noty_buttons button {
+	margin-left: 5px;
+}
+	
+/* noty close button */
+.noty_bar.noty_theme_twitter .noty_close {
+	position: absolute;
+	top: 7px;
+	right: 16px;
+	font-size: 18px;
+	line-height: 18px;
+	font-weight: bold;
+	color: #000;
+	opacity: 0.2;
+	text-shadow: 0 1px 0 #fff;
+}
+	
+/* noty close button hover */
+.noty_bar.noty_theme_twitter .noty_close:hover {
+	opacity: 0.4;
+}
+	
+.noty_bar.noty_theme_twitter .noty_close:after {
+	content: "x";
+}
+	
+/* noty modal */
+.noty_modal.noty_theme_twitter {
+	opacity: 0.7;
+}
+	
+/* LAYOUTS */
+
+/* noty_layout_topLeft & noty_layout_topRight */
+.noty_bar.noty_theme_twitter.noty_layout_center,
+.noty_bar.noty_theme_twitter.noty_layout_topCenter,
+.noty_bar.noty_theme_twitter.noty_layout_topLeft,
+.noty_bar.noty_theme_twitter.noty_layout_topRight,
+.noty_bar.noty_theme_twitter.noty_layout_bottomLeft,
+.noty_bar.noty_theme_twitter.noty_layout_bottomRight {
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.noty_bar.noty_theme_twitter.noty_layout_topLeft .noty_message .noty_buttons,
+.noty_bar.noty_theme_twitter.noty_layout_topRight .noty_message .noty_buttons,
+.noty_bar.noty_theme_twitter.noty_layout_bottomLeft .noty_message .noty_buttons,
+.noty_bar.noty_theme_twitter.noty_layout_bottomRight .noty_message .noty_buttons {
+	float: none;
+	border-top: 1px solid #FBEED5;
+	margin-left: 0;
+	margin-top: 10px;
+	padding-top: 10px;
+	text-align: right;
+}
+	
+.noty_bar.noty_theme_twitter.noty_layout_center .noty_message .noty_buttons,
+.noty_bar.noty_theme_twitter.noty_layout_topCenter .noty_message .noty_buttons {
+	margin-left: 15px;
+	margin-top: -2px
+}
+	
+/* NOTIFICATION TYPES */
+
+/* noty_alert */
+.noty_bar.noty_theme_twitter.noty_alert {
+	background-color: #FCF8E3;
+	border: 1px solid #FBEED5;
+	color: #C09853;
+}
+/* noty_error */
+.noty_bar.noty_theme_twitter.noty_error {
+	background-color: #F2DEDE;
+	border: 1px solid #EED3D7;
+	color: #B94A48;
+}
+/* noty_success */
+.noty_bar.noty_theme_twitter.noty_success {
+	background-color: #DFF0D8;
+	border: 1px solid #D6E9C6;
+	color: #468847;
+}
+/* noty_information */
+.noty_bar.noty_theme_twitter.noty_information {
+	background-color: #D9EDF7;
+	border: 1px solid #BCE8F1;
+	color: #3A87AD;
+}

@@ -22,7 +22,7 @@
     </PostDeploymentCommand>
     <PreDeploymentCommand>
     </PreDeploymentCommand>
-    <IncludeAssemblyInPackage>False</IncludeAssemblyInPackage>
+    <IncludeAssemblyInPackage>True</IncludeAssemblyInPackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,11 +62,21 @@
     <Reference Include="Microsoft.SharePoint.Security" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventReceiver\EventReceiver.cs" />
+    <Compile Include="Features\JEFS Root List Feature\JEFS Root List Feature.EventReceiver.cs">
+      <DependentUpon>JEFS Root List Feature.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Elements\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{ec9c30d6-d37f-4d8f-aff1-954a5e6c6e95}</SharePointProjectItemId>
+    </None>
+    <None Include="EventReceiver\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{519ff342-8b37-426a-b4db-941a70b68be1}</SharePointProjectItemId>
+    </None>
+    <None Include="Features\JEFS Root List Event Receiver Feature\JEFS Root List Event Receiver Feature.feature">
+      <FeatureId>{5d4f9c0b-75ec-4e81-9570-b150c4797a32}</FeatureId>
     </None>
     <None Include="Features\JEFS Editor Feature\JEFS Editor Feature.feature">
       <FeatureId>{3f35be15-24a4-41a9-996d-20027b8004a2}</FeatureId>
@@ -78,13 +88,13 @@
     <None Include="JEFS\CustomFiles\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{399aa816-a815-449a-87e5-6dfde5836abf}</SharePointProjectItemId>
     </None>
-    <None Include="JEFS\Pages\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{3961640b-1cb0-482d-a983-ddd51deefb0f}</SharePointProjectItemId>
-    </None>
     <None Include="JEFS\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{c961fc10-b6fb-4213-9890-6bf7b99ee909}</SharePointProjectItemId>
     </None>
     <None Include="key.snk" />
+    <None Include="minify.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Package\Package.package">
       <PackageId>{4646d755-a7cc-49a5-96aa-1748be8151f3}</PackageId>
     </None>
@@ -94,12 +104,23 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="EventReceiver\Elements.xml" />
+    <Content Include="Features\JEFS Root List Event Receiver Feature\JEFS Root List Event Receiver Feature.Template.xml">
+      <DependentUpon>JEFS Root List Event Receiver Feature.feature</DependentUpon>
+    </Content>
     <Content Include="Features\JEFS Editor Feature\JEFS Editor Feature.Template.xml">
       <DependentUpon>JEFS Editor Feature.feature</DependentUpon>
     </Content>
+    <Content Include="JEFS\CustomFiles\jefs.aspx" />
+    <Content Include="JEFS\CustomFiles\jefs.css" />
+    <Content Include="JEFS\CustomFiles\Scripts\jefs.editor.js" />
     <Content Include="JEFS\CustomFiles\Scripts\jquery\jquery-GPL-LICENSE.txt" />
     <Content Include="JEFS\CustomFiles\Scripts\jquery\jquery-MIT-LICENSE.txt" />
     <Content Include="JEFS\CustomFiles\Scripts\lab\License.txt" />
+    <Content Include="JEFS\CustomFiles\Scripts\noty\jquery.noty.css" />
+    <Content Include="JEFS\CustomFiles\Scripts\noty\jquery.noty.js" />
+    <Content Include="JEFS\CustomFiles\Scripts\noty\LICENSE.txt" />
+    <Content Include="JEFS\CustomFiles\Scripts\noty\noty_theme_twitter.css" />
     <Content Include="license.txt" />
     <Content Include="Elements\Elements.xml">
       <SubType>Designer</SubType>
@@ -108,24 +129,32 @@
       <DependentUpon>JEFS Root List Feature.feature</DependentUpon>
     </Content>
     <Content Include="JEFS\CustomFiles\Elements.xml" />
-    <Content Include="JEFS\CustomFiles\libraries.txt" />
+    <Content Include="JEFS\CustomFiles\settings.txt" />
     <Content Include="JEFS\CustomFiles\Scripts\codemirror\codemirror-compressed.js" />
     <Content Include="JEFS\CustomFiles\Scripts\codemirror\codemirror.css" />
-    <Content Include="JEFS\CustomFiles\Scripts\jefs.debug.js" />
     <Content Include="JEFS\CustomFiles\Scripts\jefs.js" />
     <Content Include="JEFS\CustomFiles\Scripts\jquery\jquery-1.7.1.min.js" />
     <Content Include="JEFS\CustomFiles\Scripts\lab\LAB.min.js" />
     <Content Include="JEFS\Elements.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="JEFS\Pages\Elements.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="JEFS\Schema.xml" />
     <Content Include="readme.txt" />
+    <Content Include="Scripts\jefs.status.js" />
+    <Content Include="Scripts\jefs.sp.js" />
+    <Content Include="Scripts\jefs.editor.app.js" />
+    <Content Include="Scripts\jefs.sp.runtime.js" />
+    <Content Include="Scripts\jefs.cpanel.js" />
+    <Content Include="Scripts\jefs.editor.js" />
+    <Content Include="Scripts\jefs.editors.js" />
+    <Content Include="Scripts\jefs.item.js" />
+    <Content Include="Scripts\jefs.js" />
+    <Content Include="Scripts\jefs.load.js" />
+    <Content Include="Scripts\jefs.splitter.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" />
+  <Import Project="$(SolutionDir)\minify.targets" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>

@@ -1,31 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
       
-  <CustomAction 
-    ScriptSrc="~SiteCollection/Lists/JEFS/codemirror-compressed.js" 
-    Location="ScriptLink" 
-    Sequence="10001"/>
-
   <CustomAction
     ScriptSrc="~SiteCollection/Lists/JEFS/lab.min.js"
     Location="ScriptLink"
-    Sequence="10001"/>
+    Sequence="35001"/>
 
   <CustomAction
     ScriptSrc="~SiteCollection/Lists/JEFS/jquery-1.7.1.min.js"
     Location="ScriptLink"
-    Sequence="10001"/>
+    Sequence="35002"/>
   
-  <!--<CustomAction
+  <CustomAction
     ScriptSrc="~SiteCollection/Lists/JEFS/jefs.js"
     Location="ScriptLink"
-    Sequence="10002"/>-->
-  
-  <!-- TO DEBUG REPLACE WITH: -->  
-  <CustomAction
-    ScriptSrc="~SiteCollection/Lists/JEFS/jefs.debug.js"
-    Location="ScriptLink"
-    Sequence="10002"/>
+    Sequence="35003"/>  
                   
   <!-- JEFS buttons inside the Ribbon. -->
   <CustomAction
@@ -52,7 +41,7 @@
       <CommandUIHandlers>
         <CommandUIHandler
           Command="JEFS.SharePoint.WebPartPage.Actions.Controls.Button.Command"
-          CommandAction="javascript:JEFS.editor.launch();" />
+          CommandAction="javascript:jefs.editor.launch();" />
       </CommandUIHandlers>
     </CommandUIExtension>
   </CustomAction>
@@ -79,7 +68,7 @@
       <CommandUIHandlers>
         <CommandUIHandler
           Command="JEFS.SharePoint.WikiPage.Actions.Controls.Button.Command"
-          CommandAction="javascript:JEFS.editor.launch();" />
+          CommandAction="javascript:jefs.editor.launch();" />
       </CommandUIHandlers>
     </CommandUIExtension>
   </CustomAction>
@@ -107,7 +96,7 @@
       <CommandUIHandlers>
         <CommandUIHandler
           Command="JEFS.SharePoint.WikiPage.PubPageActions.Controls.Button.Command"
-          CommandAction="javascript:JEFS.editor.launch();" />
+          CommandAction="javascript:jefs.launchEditor();" />
       </CommandUIHandlers>
     </CommandUIExtension>
   </CustomAction>
@@ -135,7 +124,7 @@
       <CommandUIHandlers>
         <CommandUIHandler
           Command="JEFS.SharePoint.List.CustomizeList.Controls.Button.Command"
-          CommandAction="javascript:JEFS.editor.launch();" />
+          CommandAction="javascript:jefs.editor.launch();" />
       </CommandUIHandlers>
     </CommandUIExtension>
   </CustomAction>
@@ -163,7 +152,7 @@
       <CommandUIHandlers>
         <CommandUIHandler
           Command="JEFS.SharePoint.ListForms.Actions.Controls.Button.Command"
-          CommandAction="javascript:JEFS.editor.launch();" />
+          CommandAction="javascript:jefs.editor.launch();" />
       </CommandUIHandlers>
     </CommandUIExtension>
   </CustomAction>
@@ -191,7 +180,7 @@
       <CommandUIHandlers>
         <CommandUIHandler
           Command="JEFS.SharePoint.DocLib.CustomizeLibrary.Controls.Button.Command"
-          CommandAction="javascript:JEFS.editor.launch();" />
+          CommandAction="javascript:jefs.editor.launch();" />
       </CommandUIHandlers>
     </CommandUIExtension>
   </CustomAction>
@@ -219,20 +208,9 @@
       <CommandUIHandlers>
         <CommandUIHandler
           Command="JEFS.SharePoint.DocLibForms.Actions.Controls.Button.Command"
-          CommandAction="javascript:JEFS.editor.launch();" />
+          CommandAction="javascript:jefs.editor.launch();" />
       </CommandUIHandlers>
     </CommandUIExtension>
-  </CustomAction>
-  
-  <!-- JEFS button inside the site actions -->
-  <CustomAction 
-    Id="SiteActionsToolbar" 
-    GroupId="SiteActions" 
-    Location="Microsoft.SharePoint.StandardMenu" 
-    Sequence="1000" 
-    Title="JEFS"
-    Description="Javascript Editor for SharePoint">
-    <UrlAction Url="javascript:JEFS.editor.launch();"/>
-  </CustomAction>
+  </CustomAction>   
   
 </Elements>

@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <ListInstance Title="JEFS"
-                OnQuickLaunch="FALSE"                
-                TemplateType="100"                
-                FeatureId="00bfea71-de22-43b2-a848-c05709900100"
-                Url="Lists/JEFS"                
+                OnQuickLaunch="FALSE"
+                TemplateType="100"
+                FeatureId="{00bfea71-de22-43b2-a848-c05709900100}"
+                Url="Lists/JEFS"
                 CustomSchema="JEFS\Schema.xml"
-                Description="Custom scripts written in Javascript Editor for SharePoint (JEFS)">      
+                Description="Custom scripts written in Javascript Editor for SharePoint (JEFS)">
   </ListInstance>    
-  <!-- RootWebOnly="TRUE" cannot be specified with in a list instance hosted inside the site level feature (object reference error occurs during feature activation). 
+  <!-- RootWebOnly="TRUE" cannot be specified within a list instance hosted inside the site level feature (object reference error occurs during feature activation). 
   Specify this parameter in the Schema.xml file instead. -->
 </Elements>

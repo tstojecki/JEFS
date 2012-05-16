@@ -9,9 +9,9 @@
 
     // utility functions
     // log errors 
-    jefs.log = function (args) {
+    jefs.log = function () {
         if (typeof console !== "undefined" && typeof console.log !== "undefined") {
-            console.log(args);
+            console.log(arguments);
         }
     }
 
@@ -112,8 +112,7 @@
                 this.apply(this, args || []);
             } catch (e) {
                 jefs.log("Callback error. Topic: " + topic, "Error details: " + e);
-                if (typeof jefs.errorNoty != "undefined") 
-                    jefs.errorNoty();
+                jefs.publish("jefs/error", [e]);
             }
         });
     };

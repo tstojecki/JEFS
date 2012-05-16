@@ -9,9 +9,9 @@
 
     // utility functions
     // log errors 
-    jefs.log = function (args) {
+    jefs.log = function () {
         if (typeof console !== "undefined" && typeof console.log !== "undefined") {
-            console.log(args);
+            console.log(arguments);
         }
     }
 
@@ -112,8 +112,7 @@
                 this.apply(this, args || []);
             } catch (e) {
                 jefs.log("Callback error. Topic: " + topic, "Error details: " + e);
-                if (typeof jefs.errorNoty != "undefined") 
-                    jefs.errorNoty();
+                jefs.publish("jefs/error", [e]);
             }
         });
     };
@@ -161,21 +160,42 @@
 
 })(this.jefs = this.jefs || {}, jQuery);
 
-(function (jefs, $) {
+(function (jefs, $, noty) {
 
-    jefs.status = function (text, type, timeout) {
+    jefs.status = function (opt) {
 
-        var id = this["noty-" + type];
-        if (typeof id != "undefined") {
-            $.noty.setText(id, text);
+        // id, text, type, timeout, append
+        var $nel,
+            o = {},
+            defaults = {
+                id: 0,
+                text: "",
+                type: "information",
+                layout: "top",
+                timeout: 5000,
+                append: false
+            };
+
+        o = $.extend(defaults, opt);
+
+        if (o.id) {
+
+            if (o.append) {
+                $nel = $.noty.get(o.id);
+                if ($nel.length > 0) {
+                    o.text = $nel.find('.noty_text').html() + o.text;
+                }
+            }
+            // use with sticky notifications only
+            $.noty.setText(o.id, o.text, o.timeout);
+            return o.id;
         }
+        else {
+            return noty({ text: o.text, type: o.type, theme: "noty_theme_twitter", layout: o.layout, closeButton: true, timeout: o.timeout });
+        }
+    }
 
-        if (typeof timeout == "undefined") timeout = 5000;
-
-        this["noty-" + type] = noty({ text: text, type: type, theme: "noty_theme_twitter", layout: "topRight", closeButton: true, timeout: timeout });
-    }    
-
-})(this.jefs, jQuery);
+})(this.jefs, jQuery, noty);
 
 (function (jefs, $) {
 
@@ -229,7 +249,7 @@
                     that.webPartZone = item.WebPartZone || that.webPartZone;
                 }
 
-                jefs.publish("jefs/item/loaded", [jefs.item]);
+                jefs.publish("jefs/content/loaded", [jefs.item]);
             })
             .error(function (jqXHR, status, err) {
                 jefs.log("JEFS encountered an error while retrieving content. Make sure the list exists at the top of the site collection and that you have enough permissions to access it.");
@@ -273,7 +293,7 @@
                 var $id = $(doc).find("*").filter("d\\:id");
                 if ($id.length > 0) {
                     that.id = parseInt($id.text());
-                    jefs.publish("jefs/item/saved", that);
+                    jefs.publish("jefs/content/saved", that);
                 }
             })
             .error(function (jqXHR, status, err) {
@@ -301,7 +321,7 @@
                     data: this.toJson(url),
                     dataType: "json",
                     success: function () {
-                        jefs.publish("jefs/item/saved", that);
+                        jefs.publish("jefs/content/saved", that);
                     },
                     error: function (jqXHR, status, err) {
                         jefs.log("JEFS ecountered an error while saving content to the list.");
@@ -351,45 +371,47 @@
             .error(function (jqXHR, status, err) {
                 jefs.log("Could not retrieve the zones in the page you're editing");
                 jefs.log(err);
+
+                // don't publish an error event here
             });
         },
 
-        addWebPart: function (pageUrl, zone, contentUrl) {
+        addWebPart: function (pageUrl, zone, contentUrl, successCallback) {
             var wpXml = '&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;WebPart xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;http://schemas.microsoft.com/WebPart/v2&quot;&gt;&lt;Title&gt;JEFS Content Editor Web Part&lt;/Title&gt;&lt;FrameType&gt;None&lt;/FrameType&gt;&lt;Description&gt;JEFS HTML Content&lt;/Description&gt;&lt;IsIncluded&gt;true&lt;/IsIncluded&gt;&lt;ZoneID&gt;' + zone + '&lt;/ZoneID&gt;&lt;PartOrder&gt;0&lt;/PartOrder&gt;&lt;FrameState&gt;Normal&lt;/FrameState&gt;&lt;Height /&gt;&lt;Width /&gt;&lt;AllowRemove&gt;true&lt;/AllowRemove&gt;&lt;AllowZoneChange&gt;true&lt;/AllowZoneChange&gt;&lt;AllowMinimize&gt;true&lt;/AllowMinimize&gt;&lt;IsVisible&gt;true&lt;/IsVisible&gt;&lt;DetailLink /&gt;&lt;HelpLink /&gt;&lt;Dir&gt;Default&lt;/Dir&gt;&lt;PartImageSmall /&gt;&lt;MissingAssembly /&gt;&lt;PartImageLarge&gt;/_layouts/images/mscontl.gif&lt;/PartImageLarge&gt;&lt;IsIncludedFilter /&gt;&lt;Assembly&gt;Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c&lt;/Assembly&gt;&lt;TypeName&gt;Microsoft.SharePoint.WebPartPages.ContentEditorWebPart&lt;/TypeName&gt;&lt;ContentLink xmlns=&quot;http://schemas.microsoft.com/WebPart/v2/ContentEditor&quot;&gt;' + contentUrl + '&lt;/ContentLink&gt;&lt;Content xmlns=&quot;http://schemas.microsoft.com/WebPart/v2/ContentEditor&quot;&gt;&lt;/Content&gt;&lt;PartStorage xmlns=&quot;http://schemas.microsoft.com/WebPart/v2/ContentEditor&quot; /&gt;&lt;/WebPart&gt;',
                 env = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><AddWebPart xmlns="http://microsoft.com/sharepoint/webpartpages"><pageUrl>' + pageUrl + '</pageUrl><webPartXml>' + wpXml + '</webPartXml><storage>Shared</storage></AddWebPart></soap:Body></soap:Envelope>';
 
             this.postWebPartPageWebService(
                 env,
                 "http://microsoft.com/sharepoint/webpartpages/AddWebPart",
-                "jefs/webparts/added",
+                successCallback,
                 "Could not add the content editor web part to: " + pageUrl
             );
         },
 
-        saveWebPart: function (pageUrl, wpKey, contentUrl, zone) {
+        saveWebPart: function (pageUrl, wpKey, contentUrl, zone, successCallback) {
             var wpXml = '&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;WebPart xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;http://schemas.microsoft.com/WebPart/v2&quot;&gt;&lt;Title&gt;JEFS Content Editor Web Part&lt;/Title&gt;&lt;FrameType&gt;None&lt;/FrameType&gt;&lt;Description&gt;JEFS HTML Content&lt;/Description&gt;&lt;IsIncluded&gt;true&lt;/IsIncluded&gt;&lt;ZoneID&gt;' + zone + '&lt;/ZoneID&gt;&lt;PartOrder&gt;0&lt;/PartOrder&gt;&lt;FrameState&gt;Normal&lt;/FrameState&gt;&lt;Height /&gt;&lt;Width /&gt;&lt;AllowRemove&gt;true&lt;/AllowRemove&gt;&lt;AllowZoneChange&gt;true&lt;/AllowZoneChange&gt;&lt;AllowMinimize&gt;true&lt;/AllowMinimize&gt;&lt;IsVisible&gt;true&lt;/IsVisible&gt;&lt;DetailLink /&gt;&lt;HelpLink /&gt;&lt;Dir&gt;Default&lt;/Dir&gt;&lt;PartImageSmall /&gt;&lt;MissingAssembly /&gt;&lt;PartImageLarge&gt;/_layouts/images/mscontl.gif&lt;/PartImageLarge&gt;&lt;IsIncludedFilter /&gt;&lt;Assembly&gt;Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c&lt;/Assembly&gt;&lt;TypeName&gt;Microsoft.SharePoint.WebPartPages.ContentEditorWebPart&lt;/TypeName&gt;&lt;ContentLink xmlns=&quot;http://schemas.microsoft.com/WebPart/v2/ContentEditor&quot;&gt;' + contentUrl + '&lt;/ContentLink&gt;&lt;Content xmlns=&quot;http://schemas.microsoft.com/WebPart/v2/ContentEditor&quot;&gt;&lt;/Content&gt;&lt;PartStorage xmlns=&quot;http://schemas.microsoft.com/WebPart/v2/ContentEditor&quot; /&gt;&lt;/WebPart&gt;',
                 env = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><AddWebPart xmlns="http://microsoft.com/sharepoint/webpartpages"><pageUrl>' + pageUrl + '</pageUrl><webPartXml>' + wpXml + '</webPartXml><storage>Shared</storage></AddWebPart></soap:Body></soap:Envelope>';
 
             this.postWebPartPageWebService(
                 env,
                 "http://microsoft.com/sharepoint/webpartpages/SaveWebPart",
-                "jefs/webparts/saved",
+                successCallback,
                 "Could not update the content editor web part on: " + pageUrl
             );
         },
 
-        deleteWebPart: function (pageUrl, wpKey) {
+        deleteWebPart: function (pageUrl, wpKey, successCallback) {
             var env = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><DeleteWebPart xmlns="http://microsoft.com/sharepoint/webpartpages"><pageUrl>' + pageUrl + '</pageUrl><storageKey>' + wpKey + '</storageKey><storage>Shared</storage></DeleteWebPart></soap:Body></soap:Envelope>'
 
             this.postWebPartPageWebService(
                 env,
                 "http://microsoft.com/sharepoint/webpartpages/DeleteWebPart",
-                "jefs/webparts/deleted",
+                successCallback,
                 "Could not delete the content editor web part on: " + pageUrl
             );
         },
 
-        postWebPartPageWebService: function (env, soapActionValue, successPubEventName, errorMessage) {
+        postWebPartPageWebService: function (env, soapActionValue, successCallback, errorMessage) {
             $.ajax({
                 url: jefs.config.siteCollectionUrl + '_vti_bin/webpartpages.asmx',
                 type: 'POST',
@@ -401,10 +423,10 @@
                 }
             })
             .done(function (d) {
-                jefs.publish(successPubEventName, [d]);
+                successCallback(d);
             })
             .error(function (jqXHR, status, err) {
-                jefs.log(errorMessage, err);                
+                jefs.log(errorMessage, err);
                 jefs.publish("jefs/error", err);
             });
         }
@@ -463,17 +485,23 @@
             $source.append($("<a>").attr({ href: jefs.editor.sourceUrl, target: "_blank" }).html(jefs.editor.sourceAbsUrl));
 
             $save.on("click", function () {
-                jefs.publish("jefs/save", [false]);                
+                jefs.publish("jefs/content/save");
             });
 
             $saveClose.on("click", function () {
-                jefs.publish("jefs/save", [true]);                
+                jefs.publish("jefs/content/save");
             });
 
             $views.on("change", function () {
                 var val = $(this).attr("value");
 
                 jefs.publish("jefs/views/change", [val]);
+            });
+
+            jefs.subscribe("jefs/settings/ready", function (settings) {
+                $.each(settings.libraries, function (idx, item) {
+                    $lib.append($("<option>", { value: item.url }).text(item.name));
+                });
             });
 
             $lib.on("change", function () {
@@ -487,6 +515,33 @@
 
                 if (val !== "none")
                     jefs.publish("jefs/libs/change", [val]);
+            });
+
+
+            jefs.subscribe("jefs/zones/ready", function (zones) {
+
+                $.each(zones, function (idx, item) {
+                    $zones.append($("<option>", { value: item }).text(item));
+                });
+
+                if (zones && zones.length > 0) {
+                    $zones.removeAttr("disabled");
+
+                    if (!jefs.item.webPartId) {
+                        // show this only if the web part hasn't been added yet
+                        jefs.status({ text: "Retrieved " + zones.length + " web part zone(s). Selecting a zone will save the html as the content editor webpart.", layout: "topRight" });
+                    }
+                    else {
+                        if (jefs.item.webPartZone) {
+                            $zones.val(jefs.item.webPartZone);
+                            jefs.editor.webPartZone = jefs.item.webPartZone;
+                        }
+                    }
+                }
+                else {
+                    jefs.status({ text: "No web part zones have been identified for this url. You can still append the html content stored in jefs.item.html using javascript." });
+                }
+
             });
 
             $zones.on("change", function () {
@@ -607,6 +662,146 @@
 
 })(this.jefs, jQuery);
 
+(function (jefs, $) {
+
+    var manager,
+        notificationId,
+        saving,
+        saved;
+
+    manager = {
+        init: function () {
+
+            jefs.subscribe("jefs/content/save", saving);
+            jefs.subscribe("jefs/content/saved", saved);
+        }
+    }
+
+    saving = function (suppressNotification) {
+        if (!suppressNotification)
+            notificationId = jefs.status({ id: notificationId, text: "Saving changes, please wait...", timeout: false });
+
+        jefs.editor.close = close;
+
+        jefs.item.js = jefs.editors.js.getValue();
+        jefs.item[jefs.editor.htmlView] = jefs.editors.html.getValue();
+        jefs.item.save(jefs.editor.sourceUrl);
+    }
+
+    saved = function () {
+
+        // publish additional web part events if necessary
+        if (jefs.editor.zone && jefs.editor.zone.toLowerCase() !== "none") {
+            if (jefs.item.webPartId) {
+                if (jefs.editor.zone !== jefs.item.webPartZone) {
+                    jefs.publish("jefs/webparts/update", [notificationId]);
+                    return;
+                }
+            }
+            else {
+                jefs.publish("jefs/webparts/add", [notificationId]);
+                return;
+            }
+        }
+        else {
+
+            if (jefs.item.webPartId) {
+                jefs.publish("jefs/webparts/delete", [notificationId]);
+                return;
+            }
+        }
+
+        jefs.status({ id: notificationId, text: "<b> Done! </b>", timeout: 3000, append: true });
+        notificationId = null;
+    }
+
+    jefs.em = jefs.em || {};
+    jefs.em.content = manager;
+
+})(this.jefs, jQuery);
+
+(function (jefs, $) {
+
+    var manager,
+        notificationId,
+        add,
+        added,
+        update,
+        updated,
+        remove,
+        removed;
+
+    manager = {
+        init: function () {
+
+            jefs.subscribe("jefs/webparts/add", add);
+            jefs.subscribe("jefs/webparts/update", update);
+            jefs.subscribe("jefs/webparts/delete", remove);
+        }
+    };
+
+    add = function (notificationId) {
+
+        jefs.sp.addWebPart(
+            jefs.editor.sourceUrl,
+            jefs.editor.zone,
+            jefs.config.siteCollectionUrl + "lists/jefs/attachments/" + jefs.item.id + "/jefs-my.txt",
+            function (d) {
+                var result = $(d).find("*").filter("addwebpartresult");
+
+                if (result.length > 0) {
+                    jefs.status({ id: notificationId, text: "Your content has been saved and a new web part has been added. <br />Please wait while web part changes are being saved...", timeout: false });
+
+                    jefs.item.webPartId = result.text();
+                    jefs.item.webPartZone = jefs.editor.zone;
+
+                    jefs.publish("jefs/content/save", [true]);
+                }
+            }
+        );
+    }
+
+    update = function (notificationId) {
+
+        jefs.sp.saveWebPart(
+            jefs.editor.sourceUrl,
+            jefs.item.webPartId,
+            jefs.config.siteCollectionUrl + "lists/jefs/attachments/" + jefs.item.id + "/jefs-my.txt",
+            jefs.editor.zone,
+            function (d) {
+                var result = $(d).find("*").filter("addwebpartresult");
+
+                if (result.length > 0) {
+                    jefs.status({ id: notificationId, text: "Your content has been saved and the web part has been moved to a new zone. <br />Please wait while web part changes are being saved...", timeout: false });
+
+                    jefs.item.webPartId = result.text();
+                    jefs.item.webPartZone = jefs.editor.zone;
+
+                    jefs.publish("jefs/content/save", [true]);
+                }
+            });
+    }
+
+    remove = function (notificationId) {
+        jefs.status({ id: notificationId, text: "Removing the content editor web part from the page...", timeout: false });
+
+        jefs.sp.deleteWebPart(
+            jefs.editor.sourceUrl,
+            jefs.item.webPartId,
+            function () {
+                jefs.status({ id: notificationId, text: "Your content has been saved and the web part been removed form the page. <br />Please wait while web part changes are being saved...", timeout: false });
+
+                jefs.item.webPartId = jefs.item.webPartZone = "";
+                jefs.publish("jefs/content/save", [true]);
+            }
+        );
+    }
+
+    jefs.em = jefs.em || {};
+    jefs.em.webparts = manager;
+
+})(this.jefs, jQuery);
+
 (function (jefs, $, window) {
 
     var editor = {
@@ -653,7 +848,7 @@
     }
 
     editor.showError = function () {
-        jefs.status("An errror occured while executing this action, see the browser's console for details.", "error", false);
+        jefs.status({ text: "An errror occured while executing this action, see the browser's console for details.", type: "error", timeout: false });
     }
 
     editor._getSettings = function () {
@@ -671,7 +866,7 @@
                 that.wrap_html = obj.settings.wrap_html;
                 that.libraries = obj.libraries;
 
-                jefs.publish("jefs/settings/ready");
+                jefs.publish("jefs/settings/ready", [obj]);
             }
             catch (e) {
                 jefs.log("The method jefs.config.get() failed to parse the settings. Make sure the settings.txt file is valid.");
@@ -722,91 +917,14 @@
                 .splitter()
                 .data("splitter");
 
-        // handle editor's events
-
-        jefs.subscribe("jefs/save", function (close) {
-            jefs.status("Saving content, please wait...", "information");
-
-            jefs.editor.close = close;
-
-            jefs.item.js = jefs.editors.js.getValue();
-            jefs.item[jefs.editor.htmlView] = jefs.editors.html.getValue();
-            jefs.item.save(jefs.editor.sourceUrl);
-        });
-
+        // handle events in the editor or delegate to the manager objects
         jefs.subscribe("jefs/error", function () {
             jefs.editor.close = false;
             jefs.editor.showError();
         });
 
-        jefs.subscribe("jefs/item/saved", function () {
-            var statusText = "Content saved. <br />";
-
-            if (jefs.editor.zone && jefs.editor.zone.toLowerCase() !== "none") {
-
-                // web part already on the page, see if zone changed
-                if (jefs.item.webPartId) {
-                    if (jefs.editor.zone !== jefs.item.webPartZone) {
-                        statusText += "The content editor web part will be moved to a new zone.";
-                        jefs.sp.saveWebPart(
-                            jefs.editor.sourceUrl,
-                            jefs.item.webPartId,
-                            jefs.config.siteCollectionUrl + "lists/jefs/attachments/" + jefs.item.id + "/jefs-my.txt",
-                            jefs.editor.zone);
-                    }
-                    else {
-                        tryClose();
-                    }
-                }
-                else {
-                    statusText += "The content editor web part will be added to the page.";
-
-                    jefs.sp.addWebPart(
-                        jefs.editor.sourceUrl,
-                        jefs.editor.zone,
-                        jefs.config.siteCollectionUrl + "lists/jefs/attachments/" + jefs.item.id + "/jefs-my.txt"
-                    );
-                }
-            }
-            else {
-                if (jefs.item.webPartId) {
-                    statusText += "The content editor web part will be removed from the page.";
-                    jefs.sp.deleteWebPart(jefs.editor.sourceUrl, jefs.item.webPartId);
-                }
-                else {                    
-                    tryClose();
-                }
-            }
-
-            jefs.status(statusText, "information");
-
-            function tryClose() {
-                if (jefs.editor.close) {
-                    statusText += ". Redirecting back to the page...";
-                    window.location.href = jefs.editor.sourceUrl;
-                }
-            }
-
-        });
-
-        jefs.subscribe("jefs/webparts/deleted", function () {
-            jefs.item.webPartId = jefs.item.webPartZone = "";            
-            jefs.item.save(jefs.editor.sourceUrl);
-        });
-
-        jefs.subscribe("jefs/webparts/added", function (d) {
-            var result = $(d).find("*").filter("addwebpartresult");
-            if (result.length > 0) {
-                jefs.item.webPartId = result.text();
-                jefs.item.webPartZone = jefs.editor.zone;
-                
-                jefs.item.save(jefs.editor.sourceUrl);
-            }
-        });
-
-        jefs.subscribe("jefs/webparts/saved", function (d) {            
-            jefs.item.webPartZone = jefs.editor.zone;
-        });
+        jefs.em.content.init();
+        jefs.em.webparts.init();
 
         jefs.subscribe("jefs/views/change", function (value) {
 
@@ -829,41 +947,6 @@
                 jefs.item.lib += "\n" + tag;
                 jefs.editors.html.setValue(jefs.item.lib);
             }
-        });
-
-        jefs.subscribe("jefs/settings/ready", function () {
-            var $sel = $("#jefs-libraries");
-            $.each(jefs.editor.libraries, function (idx, item) {
-                $sel.append($("<option>", { value: item.url }).text(item.name));
-            });
-        });
-
-        jefs.subscribe("jefs/zones/ready", function (zones) {
-            var $sel = $("#jefs-zones");
-            $.each(zones, function (idx, item) {
-                $sel.append($("<option>", { value: item }).text(item));
-            });
-
-            if (zones && zones.length > 0) {
-                $sel.removeAttr("disabled");
-
-                if (!jefs.item.webPartId) {
-                    // show this only if the web part hasn't been added yet
-                    jefs.status("Retrieved " + zones.length + " web part zone(s). Selecting a zone will save the html as the content editor webpart.",
-                       "information");
-                }
-                else {
-                    if (jefs.item.webPartZone) {
-                        $sel.val(jefs.item.webPartZone);
-                        jefs.editor.webPartZone = jefs.item.webPartZone;
-                    }
-                }
-            }
-            else {
-                jefs.status("No web part zones have been identified for this url. You can still append the html content stored in jefs.item.html using javascript.",
-                    "information");
-            }
-
         });
 
         jefs.sp.getPageZones(this.sourceUrl);

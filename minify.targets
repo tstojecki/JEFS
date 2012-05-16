@@ -36,6 +36,8 @@
       <JavaScriptEditorFiles Include="Scripts\jefs.editors.js" />
       <JavaScriptEditorFiles Include="Scripts\jefs.cpanel.js" />
       <JavaScriptEditorFiles Include="Scripts\jefs.splitter.js" />
+      <JavaScriptEditorFiles Include="Scripts\jefs.em.content.js" />
+      <JavaScriptEditorFiles Include="Scripts\jefs.em.webparts.js" />
       <JavaScriptEditorFiles Include="Scripts\jefs.editor.js" />
       <JavaScriptEditorFiles Include="Scripts\jefs.editor.app.js" />
     </ItemGroup>

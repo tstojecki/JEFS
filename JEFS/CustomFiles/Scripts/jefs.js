@@ -9,9 +9,9 @@
 
     // utility functions
     // log errors 
-    jefs.log = function (args) {
+    jefs.log = function () {
         if (typeof console !== "undefined" && typeof console.log !== "undefined") {
-            console.log(args);
+            console.log(arguments);
         }
     }
 
@@ -112,8 +112,7 @@
                 this.apply(this, args || []);
             } catch (e) {
                 jefs.log("Callback error. Topic: " + topic, "Error details: " + e);
-                if (typeof jefs.errorNoty != "undefined") 
-                    jefs.errorNoty();
+                jefs.publish("jefs/error", [e]);
             }
         });
     };
@@ -213,7 +212,7 @@
                     that.webPartZone = item.WebPartZone || that.webPartZone;
                 }
 
-                jefs.publish("jefs/item/loaded", [jefs.item]);
+                jefs.publish("jefs/content/loaded", [jefs.item]);
             })
             .error(function (jqXHR, status, err) {
                 jefs.log("JEFS encountered an error while retrieving content. Make sure the list exists at the top of the site collection and that you have enough permissions to access it.");
@@ -257,7 +256,7 @@
                 var $id = $(doc).find("*").filter("d\\:id");
                 if ($id.length > 0) {
                     that.id = parseInt($id.text());
-                    jefs.publish("jefs/item/saved", that);
+                    jefs.publish("jefs/content/saved", that);
                 }
             })
             .error(function (jqXHR, status, err) {
@@ -285,7 +284,7 @@
                     data: this.toJson(url),
                     dataType: "json",
                     success: function () {
-                        jefs.publish("jefs/item/saved", that);
+                        jefs.publish("jefs/content/saved", that);
                     },
                     error: function (jqXHR, status, err) {
                         jefs.log("JEFS ecountered an error while saving content to the list.");

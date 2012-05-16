@@ -16,17 +16,23 @@
             $source.append($("<a>").attr({ href: jefs.editor.sourceUrl, target: "_blank" }).html(jefs.editor.sourceAbsUrl));
 
             $save.on("click", function () {
-                jefs.publish("jefs/save", [false]);                
+                jefs.publish("jefs/content/save");
             });
 
             $saveClose.on("click", function () {
-                jefs.publish("jefs/save", [true]);                
+                jefs.publish("jefs/content/save");
             });
 
             $views.on("change", function () {
                 var val = $(this).attr("value");
 
                 jefs.publish("jefs/views/change", [val]);
+            });
+
+            jefs.subscribe("jefs/settings/ready", function (settings) {
+                $.each(settings.libraries, function (idx, item) {
+                    $lib.append($("<option>", { value: item.url }).text(item.name));
+                });
             });
 
             $lib.on("change", function () {
@@ -40,6 +46,33 @@
 
                 if (val !== "none")
                     jefs.publish("jefs/libs/change", [val]);
+            });
+
+
+            jefs.subscribe("jefs/zones/ready", function (zones) {
+
+                $.each(zones, function (idx, item) {
+                    $zones.append($("<option>", { value: item }).text(item));
+                });
+
+                if (zones && zones.length > 0) {
+                    $zones.removeAttr("disabled");
+
+                    if (!jefs.item.webPartId) {
+                        // show this only if the web part hasn't been added yet
+                        jefs.status({ text: "Retrieved " + zones.length + " web part zone(s). Selecting a zone will save the html as the content editor webpart.", layout: "topRight" });
+                    }
+                    else {
+                        if (jefs.item.webPartZone) {
+                            $zones.val(jefs.item.webPartZone);
+                            jefs.editor.webPartZone = jefs.item.webPartZone;
+                        }
+                    }
+                }
+                else {
+                    jefs.status({ text: "No web part zones have been identified for this url. You can still append the html content stored in jefs.item.html using javascript." });
+                }
+
             });
 
             $zones.on("change", function () {

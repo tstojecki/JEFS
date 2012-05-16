@@ -106,21 +106,27 @@
 			// Prepend noty to container
 			(isGrowl) ? base.container.prepend($('<li/>').append($noty)) : base.container.prepend($noty);
 
-	  	// topCenter and center specific options
-	  	if (base.options.layout == 'noty_layout_topCenter' || base.options.layout == 'noty_layout_center') {
-				$.noty.reCenter($noty);
+	  	    // topCenter and center specific options
+	  	    if (base.options.layout == 'noty_layout_topCenter' || base.options.layout == 'noty_layout_center') {
+				    $.noty.reCenter($noty);
 			}
 
-	  	$noty.bind('noty.setText', function(event, text) {
-	  		$noty.find('.noty_text').html(text); $.noty.reCenter($noty);
-	  	});
+	  	    $noty.bind('noty.setText', function(event, text, timeout) {
+	  	        $noty.find('.noty_text').html(text); 
+            
+                if (base.options.layout == 'noty_layout_topCenter' || base.options.layout == 'noty_layout_center') {
+                    $.noty.reCenter($noty);
+                }
 
-	  	$noty.bind('noty.getId', function(event) {
-	  		return $noty.data('noty_options').id;
-	  	});
+                if (timeout) $noty.delay(timeout).promise().done(function () { $noty.trigger('noty.close'); });
+            });        
 
-	  	// Bind close event
-	  	$noty.one('noty.close', function(event) {
+	  	    $noty.bind('noty.getId', function(event) {
+	  		    return $noty.data('noty_options').id;
+	  	    });
+
+	  	    // Bind close event
+	  	    $noty.one('noty.close', function(event) {
 				var options = $noty.data('noty_options');
 
 				// Modal Cleaning
@@ -147,11 +153,11 @@
 				});
 			});
 
-	  	// Start the show
-	  	$noty.animate(base.options.animateOpen, base.options.speed, base.options.easing, base.options.onShow);
+	  	    // Start the show
+	  	    $noty.animate(base.options.animateOpen, base.options.speed, base.options.easing, base.options.onShow);
 
-	  	// If noty is have a timeout option
-	  	if (base.options.timeout) $noty.delay(base.options.timeout).promise().done(function() { $noty.trigger('noty.close'); });
+	  	    // If noty is have a timeout option
+	  	    if (base.options.timeout) $noty.delay(base.options.timeout).promise().done(function() { $noty.trigger('noty.close'); });
 			return base.options.id;
 		};
 
@@ -164,9 +170,9 @@
 	$.noty.close = function(id) {
 		$.noty.get(id).trigger('noty.close');
 	};
-	$.noty.setText = function(id, text) {
-		$.noty.get(id).trigger('noty.setText', text);
-	};
+	$.noty.setText = function(id, text, timeout) {
+		$.noty.get(id).trigger('noty.setText', [text, timeout]);
+    };    
 	$.noty.closeAll = function() {
 		$.noty.clearQueue();
 		$('.noty_bar').trigger('noty.close');

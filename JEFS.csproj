@@ -140,6 +140,8 @@
     </Content>
     <Content Include="JEFS\Schema.xml" />
     <Content Include="readme.txt" />
+    <Content Include="Scripts\jefs.em.webparts.js" />
+    <Content Include="Scripts\jefs.em.content.js" />
     <Content Include="Scripts\jefs.status.js" />
     <Content Include="Scripts\jefs.sp.js" />
     <Content Include="Scripts\jefs.editor.app.js" />

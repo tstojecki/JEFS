@@ -9,6 +9,7 @@
 					{"name": "jQuery-1.7.1 (MS)", "url": "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.js"},						
 					{"name": "jQuery-UI-1.8.16 (MS)", "url": "http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/jquery-ui.js"},
 					{"name": "SPServices-0.6.2 (cdnjs)", "url": "http://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/0.7.1a/jquery.SPServices-0.7.1a.min.js"},
+					{"name": "ExtJS-4.1.0 (sencha.io)", "url": "http://cdn.sencha.io/ext-4.1.0-gpl/ext-all.js"},
 					{"name": "Knockout-2.0.0 (cdnjs)", "url": "http://cdnjs.cloudflare.com/ajax/libs/knockout/2.0.0/knockout-min.js"}
 				]
 }

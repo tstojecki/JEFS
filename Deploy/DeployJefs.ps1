@@ -152,8 +152,8 @@ write-host "Activating features..."
 Disable-SPFeature -Identity "JEFS_JEFS Root List Feature" -Url $siteCollectionUrl -Confirm:$false -ErrorAction SilentlyContinue
 Enable-SPFeature -Identity "JEFS_JEFS Root List Feature" -Url $siteCollectionUrl -Confirm:$false
 
-Disable-SPFeature -Identity "JEFS_JEFS Root List Event Receiver Feature" -Url $siteCollectionUrl -Confirm:$false -ErrorAction SilentlyContinue
-Enable-SPFeature -Identity "JEFS_JEFS Root List Event Receiver Feature" -Url $siteCollectionUrl -Confirm:$false
+Disable-SPFeature -Identity "JEFS_JEFS Root List Event Receiver Feature" -Url $webAbsUrl -Confirm:$false -ErrorAction SilentlyContinue
+Enable-SPFeature -Identity "JEFS_JEFS Root List Event Receiver Feature" -Url $webAbsUrl -Confirm:$false
 
 Disable-SPFeature -Identity "JEFS_JEFS Editor Feature" -Url $webAbsUrl -Confirm:$false -ErrorAction SilentlyContinue
 Enable-SPFeature -Identity "JEFS_JEFS Editor Feature" -Url $webAbsUrl -Confirm:$false

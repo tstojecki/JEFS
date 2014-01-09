@@ -11,9 +11,13 @@
         else {
             $ = jefs.$ = jQuery.noConflict(true);
 
-            jefs.config.siteCollectionUrl = window._spPageContextInfo.siteServerRelativeUrl;
+            jefs.config.siteCollectionUrl = window._spPageContextInfo.siteServerRelativeUrl;            
             if (!jefs.config.siteCollectionUrl.match(/\/$/))
                 jefs.config.siteCollectionUrl = jefs.config.siteCollectionUrl + "/";
+
+            jefs.config.webRelativeUrl = window._spPageContextInfo.webServerRelativeUrl;
+            if (!jefs.config.webRelativeUrl.match(/\/$/))
+                jefs.config.webRelativeUrl = jefs.config.webRelativeUrl + "/";
 
             item = jefs
                 .item
@@ -28,7 +32,7 @@
         jefs.editor.launch = function () {
 
             if (jefs.config.isValid()) {
-                window.location.href = jefs.config.siteCollectionUrl + "lists/jefs/jefs.aspx?source=" + sourceUrl + "&scu=" + jefs.config.siteCollectionUrl;
+                window.location.href = jefs.config.siteCollectionUrl + "lists/jefs/jefs.aspx?source=" + sourceUrl + "&scu=" + jefs.config.siteCollectionUrl + "&wru=" + jefs.config.webRelativeUrl;
             }
             else {
                 jefs.log("JEFS: could not get site collection url.");

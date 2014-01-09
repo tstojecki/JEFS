@@ -2,6 +2,7 @@
 
     jefs.config = {
         siteCollectionUrl: null,
+        webRelativeUrl: '',
         isValid: function () {
             return this.siteCollectionUrl !== null;
         }
@@ -350,7 +351,7 @@
             var env = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><GetWebPartPage xmlns="http://microsoft.com/sharepoint/webpartpages"><documentName>' + url + '</documentName><behavior>Version3</behavior></GetWebPartPage></soap:Body></soap:Envelope>';
 
             $.ajax({
-                url: jefs.config.siteCollectionUrl + '_vti_bin/webpartpages.asmx',
+                url: jefs.config.siteCollectionUrl + jefs.config.webRelativeUrl + '_vti_bin/webpartpages.asmx',
                 type: 'POST',
                 contentType: 'text/xml;charset="utf-8"',
                 dataType: 'xml',
@@ -820,9 +821,16 @@
     editor.init = function (window) {
         var query = jefs.parseQuery(window.location.search.substring(1));
 
-        if (("scu" in query) && ("source" in query)) {
+        if (("scu" in query) && ("source" in query) && ("wru" in query)) {
 
             jefs.config.siteCollectionUrl = query.scu;
+            jefs.config.webRelativeUrl = query.wru || "";
+
+            if (jefs.config.webRelativeUrl.substring(0, 1) === "/")
+                jefs.config.webRelativeUrl = jefs.config.webRelativeUrl.substring(1);
+
+            if (jefs.config.webRelativeUrl.length > 1 && jefs.config.webRelativeUrl.substring(jefs.config.webRelativeUrl.length - 1, jefs.config.webRelativeUrl.length) !== "/")
+                jefs.config.webRelativeUrl = jefs.config.webRelativeUrl + "/";
 
             this.sourceUrl = query.source;
             this.sourceAbsUrl = window.location.protocol + "//" + window.location.hostname
@@ -834,7 +842,7 @@
             this._getSettings();
         }
         else {
-            jefs.log("One of the required query string parameters is missing. Parameters: scu=" + query["scu"] + "&source=" + query["source"]);
+            jefs.log("One of the required query string parameters is missing. Parameters: scu=" + query["scu"] + "&source=" + query["source"] + "&wru=" + query["wru"]);
         }
 
         return this;

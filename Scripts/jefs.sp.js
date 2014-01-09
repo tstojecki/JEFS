@@ -6,7 +6,7 @@
             var env = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><GetWebPartPage xmlns="http://microsoft.com/sharepoint/webpartpages"><documentName>' + url + '</documentName><behavior>Version3</behavior></GetWebPartPage></soap:Body></soap:Envelope>';
 
             $.ajax({
-                url: jefs.config.siteCollectionUrl + '_vti_bin/webpartpages.asmx',
+                url: jefs.config.siteCollectionUrl + jefs.config.webRelativeUrl + '_vti_bin/webpartpages.asmx',
                 type: 'POST',
                 contentType: 'text/xml;charset="utf-8"',
                 dataType: 'xml',

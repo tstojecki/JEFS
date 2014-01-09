@@ -2,6 +2,7 @@
 
     jefs.config = {
         siteCollectionUrl: null,
+        webRelativeUrl: '',
         isValid: function () {
             return this.siteCollectionUrl !== null;
         }
